@@ -1,0 +1,111 @@
+/* Bootstrap Custom Variables and Overrides */
+:root {
+  --bs-primary: #0a49b7;
+  --bs-primary-rgb: 10, 73, 183;
+  --bs-secondary: #6b6f76;
+  --bs-success: #28a745;
+  --bs-danger: #dc3545;
+  --bs-warning: #ffc107;
+  --bs-info: #17a2b8;
+  --bs-light: #f8f9fa;
+  --bs-dark: #2b2f35;
+}
+
+/* Custom Bootstrap Component Styles */
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+  background-color: #083a93;
+  border-color: #083a93;
+}
+
+.form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.2rem rgba(10, 73, 183, 0.25);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border-color: #ced4da;
+  color: var(--bs-secondary);
+}
+
+/* Responsive Design Utilities */
+@media (max-width: 768px) {
+  .login-container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .login-left, .login-right {
+    width: 100% !important;
+  }
+  
+  .login-card {
+    transform: none !important;
+    width: 100% !important;
+  }
+  
+  .login-logo-card {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 200px;
+  }
+}
+
+/* Bootstrap Integration with existing styles */
+.login-field .form-control {
+  border: none;
+  border-bottom: 2px solid #2b2f35;
+  border-radius: 0;
+  padding: 6px 2px 8px;
+  background: transparent;
+}
+
+.login-field .input-group-text {
+  border: none;
+  border-bottom: 2px solid #2b2f35;
+  border-radius: 0;
+  background: transparent;
+}
+
+.login-field .form-control:focus {
+  border-bottom-color: #0a49b7;
+  box-shadow: none;
+}
+
+/* Password toggle button - remove border, show only eye icon */
+.password-toggle {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #6b6f76;
+  border-bottom: 2px solid #2b2f35 !important;
+  border-radius: 0 !important;
+  padding: 6px 12px 8px;
+}
+
+.password-toggle:hover {
+  background: transparent !important;
+  color: #0a49b7;
+  border-color: #0a49b7 !important;
+  box-shadow: none !important;
+}
+
+.password-toggle:focus {
+  background: transparent !important;
+  color: #0a49b7;
+  border-color: #0a49b7 !important;
+  box-shadow: none !important;
+}
+
+.password-toggle:active {
+  background: transparent !important;
+  color: #0a49b7;
+  border-color: #0a49b7 !important;
+  box-shadow: none !important;
+}

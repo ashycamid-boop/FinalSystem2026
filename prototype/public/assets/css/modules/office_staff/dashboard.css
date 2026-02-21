@@ -1,0 +1,25 @@
+/* ===== OFFICE STAFF DASHBOARD STYLES ===== */
+
+.office-staff-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.office-staff-header {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.office-staff-title {
+  color: #059669;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Add more office staff specific styles here */

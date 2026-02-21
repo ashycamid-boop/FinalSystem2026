@@ -1,0 +1,477 @@
+/* ===== ASSIGNMENTS STYLES ===== */
+
+.main-content {
+  background: #ECEFF1;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container-fluid {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Override Bootstrap table borders */
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered thead th {
+  border-bottom-width: 1px;
+}
+
+/* Top Action Bar */
+.top-action-bar {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  font-size: 14px;
+  height: 45px;
+  background: white;
+  width: 100%;
+}
+
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  font-size: 14px;
+  height: 45px;
+  background: white;
+  padding: 12px 16px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  height: 45px;
+  font-weight: 500;
+}
+
+.btn-outline-secondary {
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  height: 45px;
+  background: white;
+}
+
+.btn-outline-dark {
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  height: 45px;
+  white-space: nowrap;
+}
+
+.btn-outline-dark:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+/* Table Styles */
+.assignments-table-section {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table {
+  margin-bottom: 0;
+  border-collapse: collapse;
+  border: 1px solid #dee2e6;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+  padding: 12px;
+  font-size: 14px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table tbody td {
+  padding: 12px;
+  font-size: 14px;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+  background-color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:hover td {
+  background-color: #f8f9fa;
+}
+
+/* QR Code Display */
+.qr-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+}
+
+.qr-pattern {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #000;
+  background: white;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0;
+  padding: 2px;
+}
+
+.qr-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+.qr-dot {
+  width: 100%;
+  height: 100%;
+  border: 0.5px solid #ccc;
+}
+
+.qr-dot.black {
+  background-color: #000;
+}
+
+.qr-dot.white {
+  background-color: #fff;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.action-buttons a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #007bff;
+}
+
+.action-buttons a:hover {
+  text-decoration: underline !important;
+}
+
+.action-buttons .btn-outline-dark {
+  padding: 6px 10px;
+  font-size: 12px;
+  height: auto;
+  min-width: auto;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  border-radius: 4px;
+}
+
+.action-buttons .btn-outline-dark:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* Form Controls */
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .top-action-bar .row > div {
+    margin-bottom: 10px;
+  }
+  
+  .top-action-bar .text-end {
+    text-align: left !important;
+  }
+  
+  .table-responsive {
+    border: none;
+  }
+  
+  .table thead th,
+  .table tbody td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .qr-code-display {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .qr-code-display i {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 10px;
+  }
+  
+  .top-action-bar {
+    padding: 10px;
+  }
+  
+  .container-fluid {
+    padding: 0;
+  }
+}
+
+/* ===== QR CODE PRINT LAYOUT ===== */
+
+/* Hide QR grid by default */
+.qr-print-layout {
+  display: none !important;
+}
+
+/* QR Grid Container */
+.qr-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 5mm;
+  font-family: 'Times New Roman', serif;
+}
+
+/* Individual QR Card */
+.qr-card {
+  padding: 8px;
+  background: white;
+  page-break-inside: avoid;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* QR Card Header */
+.qr-card-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+
+.qr-logo {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.qr-title {
+  flex: 1;
+  text-align: center;
+}
+
+.qr-title h6 {
+  font-size: 10pt;
+  font-weight: bold;
+  margin: 0 0 1px 0;
+  line-height: 1.0;
+}
+
+.qr-title p {
+  font-size: 8pt;
+  margin: 0;
+  line-height: 0.9;
+}
+
+/* QR Content Area */
+.qr-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+/* RP Government Property Text */
+.rp-property-text {
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: center;
+  margin: 8px 0 5px 0;
+  letter-spacing: 0.5px;
+  font-family: 'Times New Roman', serif;
+}
+
+/* QR Code Placeholder */
+.qr-code-container {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.qr-code-placeholder {
+  width: 120px;
+  height: 120px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+}
+
+.qr-code-image {
+  width: 114px;
+  height: 114px;
+  object-fit: contain;
+}
+
+/* QR Info */
+.qr-info {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
+
+.qr-info h6 {
+  font-size: 12pt;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+  letter-spacing: 0.2px;
+}
+
+.qr-info p {
+  font-size: 10pt;
+  margin: 0;
+  font-weight: normal;
+}
+
+/* Print Styles for QR Codes */
+@media print {
+  /* Hide everything except QR grid when printing QR codes */
+  body.printing-qr * {
+    display: none !important;
+  }
+  
+  body.printing-qr .qr-print-layout,
+  body.printing-qr .qr-print-layout * {
+    display: block !important;
+  }
+  
+  body.printing-qr .qr-grid-container {
+    display: grid !important;
+  }
+  
+  body.printing-qr .qr-card-header {
+    display: flex !important;
+  }
+  
+  body.printing-qr .qr-content {
+    display: flex !important;
+  }
+  
+  body.printing-qr .qr-code-container {
+    display: flex !important;
+  }
+  
+  /* Print layout adjustments */
+  body.printing-qr {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  body.printing-qr .qr-print-layout {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  
+  body.printing-qr .qr-grid-container {
+    padding: 3mm !important;
+    gap: 3mm !important;
+  }
+  
+  body.printing-qr .qr-card {
+    border: 1px solid #000 !important;
+    padding: 6px !important;
+    margin: 0 !important;
+    height: 300px !important;
+  }
+  
+  body.printing-qr .qr-code-placeholder {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  
+  body.printing-qr .qr-code-image {
+    width: 104px !important;
+    height: 104px !important;
+  }
+  
+  body.printing-qr .qr-logo {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  
+  body.printing-qr .qr-title h6 {
+    font-size: 9pt !important;
+  }
+  
+  body.printing-qr .qr-title p {
+    font-size: 7pt !important;
+  }
+  
+  body.printing-qr .qr-info h6 {
+    font-size: 11pt !important;
+  }
+  
+  body.printing-qr .qr-info p {
+    font-size: 9pt !important;
+  }
+  
+  body.printing-qr .rp-property-text {
+    font-size: 10pt !important;
+    font-weight: bold !important;
+    letter-spacing: 0.3px !important;
+  }
+}

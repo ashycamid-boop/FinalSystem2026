@@ -1,0 +1,25 @@
+-- SQL for service_requests table
+CREATE TABLE IF NOT EXISTS `service_requests` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ticket_no` VARCHAR(64) NOT NULL,
+  `ticket_date` DATE NULL,
+  `requester_name` VARCHAR(255) NULL,
+  `requester_position` VARCHAR(150) NULL,
+  `requester_office` VARCHAR(150) NULL,
+  `requester_division` VARCHAR(150) NULL,
+  `requester_phone` VARCHAR(50) NULL,
+  `requester_email` VARCHAR(150) NULL,
+  `request_type` VARCHAR(150) NULL,
+  `request_description` TEXT NULL,
+  `requester_signature_path` VARCHAR(255) NULL,
+  `auth1_signature_path` VARCHAR(255) NULL,
+  `auth2_signature_path` VARCHAR(255) NULL,
+  `status` VARCHAR(50) NOT NULL DEFAULT 'open',
+  `created_by` INT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_ticket_no` (`ticket_no`),
+  KEY `idx_created_by` (`created_by`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

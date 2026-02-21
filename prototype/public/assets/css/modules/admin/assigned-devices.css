@@ -1,0 +1,472 @@
+/* ===== ASSIGNED DEVICES STYLES ===== */
+
+/* Main Content */
+.main-content {
+  padding: 20px;
+  font-family: 'Times New Roman', serif;
+}
+
+/* Header center text styling */
+.col-md-8.text-center {
+  font-weight: bold;
+}
+
+/* Card Styling */
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* User Info Table */
+.user-info-table {
+  margin-bottom: 20px;
+}
+
+.user-info-table td {
+  padding: 8px 12px;
+  vertical-align: middle;
+  font-size: 14px;
+  border: 1px solid #ddd;
+}
+
+.info-label {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  width: 15%;
+}
+
+/* Devices Table */
+.devices-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px 8px;
+  font-size: 13px;
+}
+
+.devices-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px 8px;
+  font-size: 13px;
+}
+
+/* Control Buttons */
+.btn-primary {
+  background: #0038A8;
+  border-color: #0038A8;
+}
+
+.btn-primary:hover {
+  background: #002d80;
+  border-color: #002d80;
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+/* Filter Button Group */
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-buttons .btn {
+  white-space: nowrap;
+}
+
+.btn-outline-dark {
+  border-color: #343a40;
+  color: #343a40;
+}
+
+.btn-outline-dark:hover {
+  background: #343a40;
+  border-color: #343a40;
+  color: white;
+}
+
+/* Form Controls */
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  border-color: #0038A8;
+  box-shadow: 0 0 0 0.2rem rgba(0, 56, 168, 0.25);
+}
+
+/* Header Logos */
+.header-logos {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.header-logos img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Print Button Positioning */
+.print-button-top {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 10;
+}
+
+.print-button-top .btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card {
+  position: relative;
+}
+
+/* User Profile Image */
+.user-profile-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Department Header */
+.department-header {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.department-header h6 {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.department-header p {
+  margin-bottom: 3px;
+  color: #666;
+}
+
+/* Assigned Devices Section */
+.assigned-devices-title {
+  color: #999;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 15px;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .user-info-table td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  
+  .devices-table th,
+  .devices-table td {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+  
+  .header-logos img {
+    max-width: 60px;
+  }
+  
+  .user-profile-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .user-info-table {
+    font-size: 11px;
+  }
+  
+  .devices-table {
+    font-size: 10px;
+  }
+  
+  .btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  * {
+    font-family: 'Times New Roman', serif !important;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 1.3;
+    color: #000;
+  }
+  
+  /* Hide unnecessary elements */
+  .sidebar,
+  .topbar,
+  .filter-buttons,
+  .btn,
+  .form-control,
+  .row.mb-4.align-items-center,
+  .row.mb-3,
+  .print-controls {
+    display: none !important;
+  }
+  
+  /* Force show header and main content elements */
+  .header-logos,
+  .header-logos *,
+  .row.align-items-center.mb-4.header-logos,
+  .row.mb-4:not(.align-items-center),
+  .user-info-table,
+  .devices-table,
+  hr,
+  h5,
+  h6 {
+    display: block !important;
+  }
+  
+  /* Specifically show header logos row */
+  .row.align-items-center.mb-4.header-logos {
+    display: table !important;
+  }
+  
+  /* Main layout adjustments */
+  .layout {
+    display: block !important;
+  }
+  
+  .main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  
+  .main-content {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .container-fluid {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Card styling for print */
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    page-break-inside: avoid;
+  }
+  
+  .card-body {
+    padding: 20px !important;
+  }
+  
+  /* Header logos section - force display */
+  .header-logos {
+    display: table !important;
+    width: 100% !important;
+    margin-bottom: 15px !important;
+    page-break-inside: avoid;
+    table-layout: fixed !important;
+  }
+  
+  .header-logos .row {
+    display: table-row !important;
+  }
+  
+  .header-logos .col-md-2:first-child,
+  .header-logos .col-md-8,
+  .header-logos .col-md-2:last-child {
+    display: table-cell !important;
+    vertical-align: middle !important;
+  }
+  
+  .header-logos .col-md-2:first-child {
+    width: 15% !important;
+    text-align: left !important;
+  }
+  
+  .header-logos .col-md-8 {
+    width: 70% !important;
+    text-align: center !important;
+  }
+  
+  .header-logos .col-md-2:last-child {
+    width: 15% !important;
+    text-align: right !important;
+  }
+  
+  .header-logos img {
+    width: 100px !important;
+    height: 100px !important;
+    display: inline-block !important;
+    max-width: none !important;
+    object-fit: contain !important;
+  }
+  
+  .col-md-8.text-center {
+    font-weight: bold !important;
+    font-size: 14pt !important;
+  }
+  
+  .col-md-8.text-center h6 {
+    font-size: 16pt !important;
+    font-weight: bold !important;
+    margin-bottom: 3px !important;
+  }
+  
+  .col-md-8.text-center p {
+    font-size: 12pt !important;
+    margin-bottom: 2px !important;
+  }
+  
+  /* Assigned Devices title */
+  .text-center h5 {
+    font-size: 16pt !important;
+    font-weight: bold !important;
+    margin: 15px 0 !important;
+    page-break-after: avoid;
+  }
+  
+  /* User profile section */
+  .row.mb-4:not(.align-items-center) {
+    display: flex !important;
+    margin-bottom: 15px !important;
+    page-break-inside: avoid;
+    width: 100% !important;
+  }
+  
+  .row.mb-4 .col-md-2 {
+    width: 16.66% !important;
+    float: left !important;
+  }
+  
+  .row.mb-4 .col-md-10 {
+    width: 83.33% !important;
+    float: left !important;
+  }
+  
+  .img-fluid.rounded-circle {
+    width: 80px !important;
+    height: 80px !important;
+    border: 1px solid #000 !important;
+    display: block !important;
+  }
+  
+  /* User info table */
+  .user-info-table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin: 0 auto 15px auto !important;
+    font-size: 11pt !important;
+  }
+  
+  .user-info-table td {
+    border: 1px solid #000 !important;
+    padding: 6px 8px !important;
+    font-size: 11pt !important;
+    text-align: center !important;
+  }
+  
+  .info-label {
+    background-color: #f0f0f0 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+  }
+  
+  /* Center the table container */
+  .table-responsive {
+    text-align: center !important;
+  }
+  
+  /* Devices table */
+  .devices-table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin: 10px auto !important;
+    font-size: 10pt !important;
+  }
+  
+  .devices-table th {
+    border: 1px solid #000 !important;
+    background-color: #f0f0f0 !important;
+    padding: 6px 4px !important;
+    font-weight: bold !important;
+    font-size: 10pt !important;
+    text-align: center !important;
+  }
+  
+  .devices-table td {
+    border: 1px solid #000 !important;
+    padding: 6px 4px !important;
+    font-size: 10pt !important;
+    text-align: center !important;
+  }
+  
+  /* Section titles */
+  h6 {
+    font-size: 12pt !important;
+    font-weight: bold !important;
+    margin: 10px 0 5px 0 !important;
+  }
+  
+  /* Remove links underline in print */
+  a {
+    text-decoration: none !important;
+    color: #000 !important;
+  }
+  
+  /* Page break control */
+  .page-break {
+    page-break-before: always;
+  }
+  
+  .no-break {
+    page-break-inside: avoid;
+  }
+  
+  /* HR styling */
+  hr {
+    border: none !important;
+    border-top: 1px solid #000 !important;
+    margin: 10px 0 !important;
+  }
+}

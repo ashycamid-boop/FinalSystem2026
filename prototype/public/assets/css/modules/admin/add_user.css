@@ -1,0 +1,410 @@
+/* ===== ADD USER PAGE STYLES - Clean Design Match ===== */
+
+/* Main Content Area */
+.main-content {
+  background: #f0f2f5;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Page Header */
+.page-header {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.page-title {
+  color: #0038A8;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title i {
+  color: #0038A8;
+  font-size: 1.2rem;
+}
+
+.page-subtitle {
+  color: #64748b;
+  font-size: 1rem;
+  margin: 12px 0 0 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Navigation Button */
+.back-btn {
+  background: #0038A8;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: #002d80;
+  color: white;
+}
+
+/* Form Cards */
+.form-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+  background: white;
+}
+
+.card-header-simple {
+  background: #0038A8;
+  border: none;
+  padding: 15px 20px;
+}
+
+.card-header-simple h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-icon {
+  color: white;
+  font-size: 1.1rem;
+}
+
+/* Profile Upload Section */
+.profile-upload-section {
+  padding: 30px 20px;
+  text-align: center;
+  background: white;
+}
+
+.profile-placeholder {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #0038A8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  margin: 0 auto 20px;
+  cursor: pointer;
+}
+
+.profile-placeholder:hover {
+  border-color: #002d80;
+  background: #e3f2fd;
+}
+
+.profile-placeholder i {
+  color: #757575;
+  font-size: 3rem;
+}
+
+.upload-btn {
+  background: #0038A8;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.upload-btn:hover {
+  background: #002d80;
+  color: white;
+}
+
+/* Form Section */
+.form-section {
+  padding: 20px;
+}
+
+.section-title {
+  color: #424242;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  color: #0038A8;
+  font-size: 1rem;
+}
+
+/* Form Groups */
+.form-group-clean {
+  margin-bottom: 15px;
+}
+
+.form-label-clean {
+  font-weight: 500;
+  color: #424242;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.required-mark {
+  color: #f44336;
+  margin-left: 2px;
+}
+
+/* Form Controls */
+.form-control-clean,
+.form-select-clean {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+  background: white;
+}
+
+/* Ensure select controls fit their column and don't force overflow */
+.form-select-clean {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.form-control-clean:focus,
+.form-select-clean:focus {
+  border-color: #0038A8;
+  box-shadow: 0 0 0 2px rgba(0, 56, 168, 0.2);
+  outline: none;
+}
+
+.form-control-clean::placeholder {
+  color: #9e9e9e;
+  font-size: 0.9rem;
+}
+
+/* Help Text */
+.form-help {
+  font-size: 0.8rem;
+  color: #757575;
+  margin-top: 4px;
+}
+
+/* Form Section Spacing */
+.form-section-spacing {
+  margin-bottom: 25px;
+}
+
+.form-section-spacing:last-child {
+  margin-bottom: 0;
+}
+
+/* Section Spacing */
+.form-section-spacing {
+  margin-bottom: 30px;
+}
+
+.form-section-spacing:last-child {
+  margin-bottom: 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  background: #757575;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #616161;
+  color: white;
+}
+
+.btn-create {
+  background: #0038A8;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.btn-create:hover {
+  background: #002d80;
+  color: white;
+}
+
+/* Validation States */
+.form-control-clean.is-invalid,
+.form-select-clean.is-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.15rem rgba(220,53,69,0.1);
+}
+
+.form-control-clean.is-valid,
+.form-select-clean.is-valid {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.15rem rgba(40,167,69,0.1);
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: #dc3545;
+}
+
+.valid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: #28a745;
+}
+
+/* Loading State */
+.form-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 320px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideInRight 0.3s ease;
+}
+
+.notification.notification-success {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.notification.notification-error {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.notification.notification-info {
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+  color: #0c5460;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 15px 20px;
+  }
+  
+  .page-title {
+    font-size: 1.4rem;
+  }
+  
+  .form-section {
+    padding: 20px;
+  }
+  
+  .profile-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .action-buttons {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  
+  .btn-cancel,
+  .btn-create {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header {
+    padding: 12px 15px;
+  }
+  
+  .form-section {
+    padding: 15px;
+  }
+  
+  .notification {
+    left: 15px;
+    right: 15px;
+    min-width: auto;
+  }
+}

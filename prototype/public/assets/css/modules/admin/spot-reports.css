@@ -1,0 +1,314 @@
+/* ===== SPOT REPORTS STYLES - Exact Design Match ===== */
+
+/* Ensure topbar matches Dashboard exactly */
+.topbar {
+  background: transparent;
+  border: none;
+  height: 90px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+}
+
+.topbar-card {
+  width: 99%;
+  margin: 0px auto 0 auto;
+  margin-left: 25px;
+  margin-right: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2px 38px;
+  min-height: 70px;
+}
+
+.topbar-title {
+  font-size: 1.35rem;
+  font-family: 'Fredoka One', cursive;
+  color: #0038A8;
+  margin: 0;
+  letter-spacing: 1px;
+  flex: 3;
+  margin-right: 15px;
+}
+
+.topbar-profile-card {
+  display: flex;
+  align-items: center;
+  background: none;
+  border-radius: 5px;
+  box-shadow: none;
+  padding: 0;
+  min-width: 180px;
+  max-width: 220px;
+  width: auto;
+  flex: 0 0 auto;
+  cursor: pointer;
+  position: relative;
+}
+
+.topbar-profile-img {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 25% !important;
+  object-fit: cover !important;
+  margin-right: 14px !important;
+  border: 2px solid #eceff1 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.topbar-profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.topbar-profile-info .name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+  letter-spacing: 1px;
+}
+
+.topbar-profile-info .role {
+  font-size: .92rem;
+  color: #6b6f76;
+  font-weight: 400;
+}
+
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 56px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  min-width: 180px;
+  z-index: 100;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.profile-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  color: #222;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background .15s;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-dropdown a:last-child {
+  border-bottom: none;
+}
+
+.profile-dropdown a:hover {
+  background: #f0f4fa;
+}
+
+/* Main Content */
+.main-content {
+  background: #ECEFF1;
+  min-height: 100vh;
+}
+
+/* Filter Section */
+.filter-section {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.filter-section .form-control,
+.filter-section .form-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  height: 38px;
+}
+
+.filter-section .form-control:focus,
+.filter-section .form-select:focus {
+  border-color: #0038A8;
+  box-shadow: 0 0 0 2px rgba(0, 56, 168, 0.15);
+  outline: none;
+}
+
+.btn-primary {
+  background: #0038A8;
+  border-color: #0038A8;
+  font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+  background: #002d80;
+  border-color: #002d80;
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Summary Cards */
+.summary-card {
+  background: #F7F9FB;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 0;
+}
+
+.summary-label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 3px;
+  font-weight: 400;
+}
+
+.summary-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Table Styles */
+.table {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.table th {
+  border-bottom: 1px solid #ddd;
+  border-top: none;
+  font-weight: 600;
+  color: #444;
+  padding: 12px 8px;
+  background: #f8f9fa !important;
+  font-size: 0.8rem;
+}
+
+.table td {
+  padding: 12px 8px;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
+  border-top: none;
+}
+
+/* Removed hover effect as requested */
+
+/* Status Badges */
+.badge {
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+/* Table Text Styling */
+.text-muted {
+  color: #6c757d !important;
+}
+
+.small {
+  font-size: 0.8rem !important;
+}
+
+/* Card Styling */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 15px;
+}
+
+/* Button Styling */
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.btn-outline-primary {
+  color: #0038A8;
+  border-color: #0038A8;
+}
+
+.btn-outline-primary:hover {
+  background: #0038A8;
+  border-color: #0038A8;
+  color: white;
+}
+
+/* Container Padding */
+.container-fluid {
+  padding: 25px !important;
+}
+
+/* Filter Section Spacing */
+.filter-section.mb-4 {
+  margin-bottom: 20px !important;
+}
+
+/* Summary Cards Spacing */
+.row.mb-3 {
+  margin-bottom: 15px !important;
+}
+
+/* Table Container */
+.table-responsive {
+  border-radius: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-section .row {
+    gap: 10px;
+  }
+  
+  .summary-card {
+    margin-bottom: 15px;
+  }
+  
+  .table th, .table td {
+    padding: 8px 4px;
+    font-size: 0.75rem;
+  }
+  
+  .container-fluid {
+    padding: 15px !important;
+  }
+}

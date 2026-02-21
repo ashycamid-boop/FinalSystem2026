@@ -1,0 +1,351 @@
+/* ===== Desktop layout matching the mock ===== */
+html, body { height:100%; margin:0; font-family:"Segoe UI", Arial, sans-serif; }
+
+/* ===== SMOOTH TRANSITIONS & ANIMATIONS ===== */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Background with dark overlay */
+.login-bg{
+  position:relative;
+  background: url('../images/background.png') no-repeat center center fixed;
+  background-size:cover;
+  width:100vw; height:100vh;
+  display:grid; place-items:center;
+}
+.login-bg::before{ content:""; position:absolute; inset:0; background:rgba(13,32,64,.45); }
+
+/* Two cards (with overlap) */
+.login-container{
+  position:relative; z-index:5;
+  display:grid;
+  grid-template-columns: 360px 540px; /* fixed sizes to match design */
+  column-gap:0;
+  align-items:center;
+  animation: fadeInUp 0.8s ease-out;
+  perspective: 1200px; /* Add 3D perspective */
+  transform-style: preserve-3d; /* Enable 3D transforms */
+}
+
+/* LEFT card (glassy) — put this IN FRONT */
+.login-left{ 
+  display:flex;
+  animation: fadeInLeft 0.8s ease-out 0.2s both;
+  position: relative;
+  z-index: 10; /* High z-index to ensure it's on top */
+}
+.login-logo-card{
+  position:relative;
+  width:360px; height:420px;
+  padding:26px 26px 18px;
+  border-radius:26px;
+  background:rgba(38,63,104,.45);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 25px 60px rgba(0,0,0,.4), 0 8px 20px rgba(0,0,0,.2);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  display:grid; grid-template-rows:1fr auto; place-items:center;
+  overflow:hidden;
+  z-index: 10; /* Ensure glass panel is on top */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(20px); /* Create 3D depth */
+}
+
+.login-logo-card:hover {
+  transform: translateY(-8px) translateZ(25px);
+  box-shadow:0 35px 80px rgba(0,0,0,.5), 0 15px 30px rgba(0,0,0,.3);
+  background:rgba(38,63,104,.55);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+}
+/* Photo background inside left card */
+.login-logo-card::before{
+  content:""; position:absolute; inset:0;
+  background:url('../images/cenro.png') center/cover no-repeat;
+  filter:brightness(.85);
+  z-index:0;
+}
+.login-logo-card::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.10));
+  z-index:0;
+}
+.denr-logo,.login-agency{ position:relative; z-index:1; }
+.denr-logo{ 
+  width:160px; height:160px; object-fit:contain;
+  transition: all 0.3s ease;
+  animation: fadeInUp 1s ease-out 0.6s both;
+}
+.denr-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: brightness(1.1);
+}
+.login-agency{
+  color:#fff; font-weight:600; letter-spacing:1.2px;
+  text-shadow:0 2px 10px rgba(0,0,0,.35);
+  transition: all 0.3s ease;
+  animation: fadeInUp 1s ease-out 0.8s both;
+}
+.login-agency:hover {
+  letter-spacing: 2px;
+  text-shadow:0 4px 20px rgba(0,0,0,.55);
+}
+
+/* RIGHT card (white) — sit BEHIND and slide under the left card */
+.login-right{ 
+  display:flex;
+  animation: fadeInRight 0.8s ease-out 0.4s both;
+  position: relative;
+  z-index: 1; /* Lower z-index to sit behind */
+}
+.login-card{
+  width:540px; min-height:340px;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:
+    inset 0 2px 15px rgba(0,0,0,.08), /* Inset shadow for pushed back effect */
+    0 15px 35px rgba(0,0,0,.15), 
+    0 5px 15px rgba(0,0,0,.1);
+  padding:28px 34px 30px;
+  transform: translateX(-25px) translateY(10px) translateZ(-10px); /* Pushed back and slightly down */
+  z-index:1; /* Behind the left card */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(0.3px); /* Subtle blur to enhance depth */
+}
+
+.login-card:hover {
+  box-shadow:
+    inset 0 3px 20px rgba(0,0,0,.12),
+    0 20px 45px rgba(0,0,0,.2),
+    0 8px 20px rgba(0,0,0,.15);
+  transform: translateX(-25px) translateY(5px) translateZ(-8px);
+  filter: blur(0.2px);
+}
+
+/* Header: centered title + logo at top-right */
+.login-header{ position:relative; height:56px; margin-bottom:18px; }
+.login-title{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  font-size:22px; font-weight:800; color:#0a49b7; letter-spacing:.5px;
+}
+.region-logo{
+  position:absolute; right:24px; top:50%; transform:translateY(-50%);
+  width:58px; height:58px; object-fit:contain;
+}
+
+/* Error text */
+.login-error{ color:#b00020; margin:6px 0 12px; font-size:.95rem; }
+
+/* Underlined inputs (like the mock) */
+.login-field{ margin:14px 0; }
+.login-field label{ display:block; color:#6b6f76; font-size:.95rem; margin-bottom:6px; }
+.login-field input{
+  width:100%; border:none; border-bottom:2px solid #2b2f35;
+  padding:6px 2px 8px; font-size:1rem; outline:none;
+}
+.login-field input:focus{ border-bottom-color:#0a49b7; }
+
+/* Remove borders from input group elements */
+.input-group {
+  border: none !important;
+}
+
+.input-group-text {
+  border: none !important;
+  background: transparent !important;
+  color: #6b6f76 !important;
+  padding-left: 0 !important;
+}
+
+.form-control {
+  border: none !important;
+  border-bottom: 2px solid #2b2f35 !important;
+  border-radius: 0 !important;
+  padding-left: 8px !important;
+  box-shadow: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.form-control:focus {
+  border-bottom-color: #0a49b7 !important;
+  box-shadow: 0 2px 8px rgba(10, 73, 183, 0.2) !important;
+  transform: translateY(-2px);
+}
+
+.form-control:hover:not(:focus) {
+  border-bottom-color: #0a49b7;
+  transform: translateY(-1px);
+}
+
+/* Complete removal of all button borders and styles */
+.password-toggle,
+.btn.password-toggle,
+button.password-toggle,
+.btn-outline-secondary.password-toggle {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #6b6f76 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+.password-toggle:hover,
+.btn.password-toggle:hover,
+button.password-toggle:hover,
+.btn-outline-secondary.password-toggle:hover {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #0a49b7 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  transform: scale(1.1);
+  animation: pulse 0.6s ease;
+}
+
+.password-toggle:focus,
+.btn.password-toggle:focus,
+button.password-toggle:focus,
+.btn-outline-secondary.password-toggle:focus {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+.password-toggle:active,
+.btn.password-toggle:active,
+button.password-toggle:active,
+.btn-outline-secondary.password-toggle:active {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+/* Remove any borders from Bootstrap icons */
+.bi-eye,
+.bi-eye-slash,
+i.bi-eye,
+i.bi-eye-slash {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Options + button */
+.login-options{ display:flex; align-items:center; gap:8px; margin:8px 0 18px; }
+.show-password-label{ display:inline-flex; align-items:center; gap:6px; color:#2b2f35; font-size:.9rem; }
+.login-btn{
+  width:100%; height:44px; border:0; border-radius:8px;
+  background: linear-gradient(135deg, #0a49b7 0%, #083a93 100%);
+  color:#fff; font-size:1.05rem; font-weight:600;
+  cursor:pointer; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(10, 73, 183, 0.3);
+}
+
+.login-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.login-btn:hover{ 
+  background: linear-gradient(135deg, #083a93 0%, #0a49b7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(10, 73, 183, 0.4);
+}
+
+.login-btn:hover::before {
+  left: 100%;
+}
+
+.login-btn:active{ 
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 2px 10px rgba(10, 73, 183, 0.3);
+}

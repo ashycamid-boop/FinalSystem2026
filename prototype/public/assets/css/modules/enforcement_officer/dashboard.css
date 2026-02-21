@@ -1,0 +1,25 @@
+/* ===== ENFORCEMENT OFFICER DASHBOARD STYLES ===== */
+
+.enforcement-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.enforcement-header {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.enforcement-title {
+  color: #d63384;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Add more enforcement officer specific styles here */

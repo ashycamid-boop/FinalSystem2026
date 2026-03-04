@@ -70,6 +70,14 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     /* "Show All" layout */
     .section{width:95%;margin:14px auto}
     .section h2{margin:10px 2px}
+    #printMeta{display:none}
+    .report-content{
+      padding:20px;
+      padding-left:20px;
+      padding-right:20px;
+      margin-left:10px;
+      margin-right:10px;
+    }
 
     /* Main Content Transitions */
     .main-content {
@@ -132,14 +140,173 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     }
 
     /* Print */
+    @page{
+      size:A4 portrait;
+      margin:12mm;
+    }
     @media print{
-      body{background:#fff}
+      html,body{
+        background:#fff !important;
+        color:#000 !important;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+        font-size:11pt;
+        height:auto !important;
+        overflow:visible !important;
+      }
       .sidebar,.topbar,.iconbtn{display:none !important}
-      .layout{display:block}
-      .tabs{display:none}
-      .grid{grid-template-columns:1fr 1fr}
-      .kpis{grid-template-columns:repeat(3,1fr)}
-      .card canvas{height:200px !important;min-width:auto}
+      .layout{
+        display:block !important;
+        height:auto !important;
+        overflow:visible !important;
+      }
+      .main{
+        margin:0 !important;
+        width:100% !important;
+        max-width:none !important;
+        min-height:auto !important;
+        height:auto !important;
+        overflow:visible !important;
+      }
+      .main-content{
+        margin:0 !important;
+        width:100% !important;
+        max-width:none !important;
+        min-height:auto !important;
+        height:auto !important;
+        overflow:visible !important;
+        padding:0 !important;
+        background:#fff !important;
+        opacity:1 !important;
+        transform:none !important;
+        filter:none !important;
+        animation:none !important;
+      }
+      .main-content > *{
+        opacity:1 !important;
+        transform:none !important;
+        animation:none !important;
+      }
+      .main-content > div{
+        width:100% !important;
+        max-width:185mm !important;
+        margin:0 auto !important;
+        padding:0 !important;
+        margin-top:10mm !important;
+        background:#fff !important;
+        overflow:visible !important;
+      }
+      #printMeta{
+        display:block !important;
+        width:100%;
+        margin:0 0 10px 0;
+        padding:0 0 8px 0;
+        border-bottom:2px solid #111827;
+      }
+      #printMeta .print-brand{
+        display:grid;
+        grid-template-columns:72px 1fr 72px;
+        align-items:center;
+        gap:12px;
+        margin:0 0 4px 0;
+      }
+      #printMeta .print-brand img{
+        height:64px;
+        width:auto;
+        object-fit:contain;
+        justify-self:center;
+      }
+      #printMeta .print-brand-center{
+        text-align:center;
+        line-height:1.2;
+      }
+      #printMeta .print-brand-center .line1{
+        font-size:8.5pt;
+        font-weight:700;
+        text-transform:uppercase;
+      }
+      #printMeta .print-brand-center .line2{
+        font-size:8pt;
+        text-transform:uppercase;
+      }
+      #printMeta .print-brand-center .line3{
+        font-size:8pt;
+        font-weight:700;
+      }
+      #printMeta .print-title{
+        font-size:15pt;
+        font-weight:800;
+        margin:2px 0 2px 0;
+        text-align:center;
+      }
+      #printMeta .print-sub{
+        font-size:9.5pt;
+        margin:0;
+        color:#374151;
+        text-align:center;
+      }
+      .tabs{display:none !important}
+      .kpis{
+        width:100% !important;
+        margin:0 0 12px 0 !important;
+        gap:8px !important;
+        grid-template-columns:repeat(3,1fr) !important;
+      }
+      .kpi{
+        background:#fff !important;
+        box-shadow:none !important;
+        border:1px solid #d1d5db !important;
+        padding:8px 10px !important;
+      }
+      .section{
+        background:#fff !important;
+        width:100% !important;
+        margin:0 0 8px 0 !important;
+        break-inside:auto;
+        page-break-inside:auto;
+        padding-top:10mm !important;
+        -webkit-box-decoration-break:clone;
+        box-decoration-break:clone;
+      }
+      .section:first-of-type{padding-top:0 !important}
+      .section h2{
+        margin:6px 0 !important;
+        font-size:13pt !important;
+        break-after:avoid-page;
+        page-break-after:avoid;
+      }
+      .grid{
+        width:100% !important;
+        margin:0 !important;
+        grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+        gap:8px !important;
+      }
+      .card{
+        background:#fff !important;
+        box-shadow:none !important;
+        overflow:visible !important;
+        break-inside:avoid-page;
+        page-break-inside:avoid;
+        border:1px solid #d1d5db !important;
+        border-radius:8px !important;
+        min-height:auto !important;
+        padding:9px !important;
+      }
+      .card h3{
+        font-size:12pt !important;
+        margin-bottom:6px !important;
+        break-after:avoid-page;
+        page-break-after:avoid;
+      }
+      .card canvas{
+        background:#fff !important;
+        height:210px !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        image-rendering:auto !important;
+        break-before:avoid-page;
+        page-break-before:avoid;
+      }
     }
   </style>
 </head>
@@ -211,7 +378,21 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       </div>
       <div class="main-content">
         <!-- Statistical Report Content -->
-        <div style="padding: 20px;">
+        <div class="report-content">
+          <div id="printMeta" aria-hidden="true">
+            <div class="print-brand">
+              <img src="../../../../public/assets/images/denr-logo.png" alt="DENR Logo">
+              <div class="print-brand-center">
+                <div class="line1">Department of Environment and Natural Resources</div>
+                <div class="line2">Kagawaran ng Kapaligiran at Likas Yaman</div>
+                <div class="line2">Caraga Region</div>
+                <div class="line3">CENRO Nasipit, Agusan del Norte</div>
+              </div>
+              <img src="../../../../public/assets/images/bagong-pilipinas-logo.png" alt="Bagong Pilipinas Logo">
+            </div>
+            <p class="print-title">CENRO Nasipit - Statistical Report</p>
+            <p class="print-sub" id="printMetaDetails"></p>
+          </div>
 
           <!-- Tabs (hidden when Show All) -->
           <div class="tabs" id="tabs">
@@ -221,8 +402,6 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
               <div class="tab" data-tab="app_individuals">Apprehended Individuals</div>
               <div class="tab" data-tab="app_vehicles">Apprehended Vehicles</div>
               <div class="tab" data-tab="app_items">Apprehended Items</div>
-              <div class="tab" data-tab="locations">Locations</div>
-              <div class="tab" data-tab="service">Service Desk</div>
             </div>
           </div>
 
@@ -285,50 +464,33 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     function sum(arr){ return arr.reduce((x,y)=>x+(+y||0),0); }
     const labelize = g => g[0].toUpperCase()+g.slice(1);
 
-    /* ===== Dummy monthly data (24 months) aligned to your modules ===== */
-    const synth = (len, base=5, sway=4, seed=1) => {
-      let x = seed*97; const out=[];
-      for(let i=0;i<len;i++){ x = (x*1103515245+12345) & 0x7fffffff; out.push(Math.max(0, Math.round(base + (x%11 - 5) * 0.5 + Math.sin((i+seed)/3)*sway))); }
-      return out;
-    };
+    /* ===== Data placeholders (static/demo data removed) ===== */
     const monthsWindow = 24;
 
-    // Spot Reports
-    const m_spot_reports = synth(monthsWindow, 8, 5, 11);
-    const spotStatusLabels=['Approved','Pending','Rejected'];
-    const spotStatusCounts=[14,5,2];
+    const m_spot_reports = [];
+    const spotStatusLabels = [];
+    const spotStatusCounts = [];
 
-    // Case Management statuses
-    const m_cases_opened = synth(monthsWindow, 4, 3, 15);
-    const caseStatusLabels=['Under Investigation','For Filing','Ongoing','Dismissed','Resolved'];
-    const caseStatusCounts=[5,2,3,1,9];
+    const m_cases_opened = [];
+    const caseStatusLabels = [];
+    const caseStatusCounts = [];
 
-    // Apprehended: Individuals
-    const m_app_individuals = synth(monthsWindow, 2, 2, 7);
-    const rolesLabels=['Driver','Helper','Owner','Cutter','Hauler'];
-    const rolesCounts=[6,4,3,2,1];
-    const genderLabels=['Male','Female'];
-    const genderCounts=[10,6];
+    const m_app_individuals = [];
+    const rolesLabels = [];
+    const rolesCounts = [];
+    const genderLabels = [];
+    const genderCounts = [];
 
-    // Apprehended: Vehicles
-    const m_app_vehicles = synth(monthsWindow, 1, 1.2, 9);
-    const vehicleStatusLabels=['For Custody','Forfeited','Disposed','Temporarily Released (Bonded)','Turned Over to Court/PNP','Released by Court Order','For Auction/Donation'];
-    const vehicleStatusCounts=[3,2,1,4,5,2,3];
+    const m_app_vehicles = [];
+    const vehicleStatusLabels = [];
+    const vehicleStatusCounts = [];
 
-    // Apprehended: Items
-    const m_app_items = synth(monthsWindow, 3, 2, 13);
-    const itemTypeLabels=['Forest Products','Equipment'];
-    const itemTypeCounts=[9,4];
+    const m_app_items = [];
+    const itemTypeLabels = [];
+    const itemTypeCounts = [];
+    const printDpr = 2;
 
-    // Locations
-    const locLabels = ['Nasipit','Buenavista','Carmen','RTR','Magallanes','Butuan'];
-    const locCounts = [6,5,4,3,2,1];
-
-    // Service Desk
-    const svcStatusLabels=['Pending','Approved','Rejected','Completed'];
-    const svcStatusCounts=[3,4,1,10];
-    const svcDevicesLabels=['UPS','Desktop Computer','Laptop Computers','Printers','Scanners','Cameras','Drones','Biometric Devices'];
-    const svcDevicesCounts=[2,4,3,9,1,2,3,1];
+    let apiLabels = [];
 
     /* ===== Chart builders (BAR / PIE only) ===== */
     const charts = {};
@@ -341,9 +503,9 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       
       if (charts[id]) charts[id].destroy();
       
-      // Add smooth chart transition
-      canvas.style.opacity = '0.3';
-      canvas.style.transform = 'scale(0.98)';
+      // Add smooth chart transition (skip visual fade when printing)
+      canvas.style.opacity = isPrintMode ? '1' : '0.3';
+      canvas.style.transform = isPrintMode ? 'scale(1)' : 'scale(0.98)';
       
       charts[id]=new Chart(canvas,{
         type:'bar',
@@ -352,6 +514,7 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
           datasets:[{
             data,
             backgroundColor: data.map((_, i) => {
+              if (isPrintMode) return PALETTE[(colorIdx + i) % PALETTE.length];
               // Gradient colors for each bar
               const canvas = document.createElement('canvas');
               const ctx = canvas.getContext('2d');
@@ -360,8 +523,8 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
               gradient.addColorStop(1, rgba(PALETTE[(colorIdx + i) % PALETTE.length], 0.3));
               return gradient;
             }),
-            borderColor: PALETTE[colorIdx],
-            borderWidth: 0,
+            borderColor: isPrintMode ? '#1f2937' : PALETTE[colorIdx],
+            borderWidth: isPrintMode ? 1 : 0,
             borderRadius: 12,
             borderSkipped: false,
             barThickness: 'flex',
@@ -377,11 +540,13 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
           }]
         },
         options:{
+          devicePixelRatio: isPrintMode ? printDpr : (window.devicePixelRatio || 1),
           responsive: true,
           maintainAspectRatio: false,
           plugins:{
             legend:{display:false},
             tooltip: {
+              enabled: !isPrintMode,
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
               titleColor: '#fff',
               bodyColor: '#fff',
@@ -407,9 +572,9 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
               ticks:{
                 autoSkip: true,
                 maxRotation: 45,
-                color: '#6b7280',
+                color: isPrintMode ? '#111827' : '#6b7280',
                 font: {
-                  size: 11,
+                  size: isPrintMode ? 12 : 11,
                   weight: '500'
                 }
               },
@@ -420,14 +585,14 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
             y:{
               beginAtZero: true,
               grid: {
-                color: 'rgba(107, 114, 128, 0.1)',
+                color: isPrintMode ? 'rgba(31, 41, 55, 0.22)' : 'rgba(107, 114, 128, 0.1)',
                 drawBorder: false
               },
               ticks:{
                 precision: 0,
-                color: '#6b7280',
+                color: isPrintMode ? '#111827' : '#6b7280',
                 font: {
-                  size: 11
+                  size: isPrintMode ? 12 : 11
                 },
                 padding: 10
               },
@@ -437,12 +602,13 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
             }
           },
           animation: {
-            duration: 1500,
-            easing: 'easeOutBounce',
+            duration: isPrintMode ? 0 : 1500,
+            easing: isPrintMode ? 'linear' : 'easeOutBounce',
             delay: (context) => {
-              return context.dataIndex * 200; // Stagger animation
+              return isPrintMode ? 0 : (context.dataIndex * 200); // Stagger animation
             },
             onProgress: (animation) => {
+              if (isPrintMode) return;
               // Add glow effect during animation
               const ctx = animation.chart.ctx;
               ctx.save();
@@ -462,11 +628,17 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       });
       
       // Complete chart transition
-      setTimeout(() => {
+      if (isPrintMode) {
         canvas.style.opacity = '1';
         canvas.style.transform = 'scale(1)';
         canvas.classList.add('loaded');
-      }, 300);
+      } else {
+        setTimeout(() => {
+          canvas.style.opacity = '1';
+          canvas.style.transform = 'scale(1)';
+          canvas.classList.add('loaded');
+        }, 300);
+      }
     };
     const mkPie = (id, labels, data, doughnut=false)=>{
       const canvas = document.getElementById(id);
@@ -477,25 +649,32 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       
       if (charts[id]) charts[id].destroy();
       
-      // Add smooth chart transition
-      canvas.style.opacity = '0.3';
-      canvas.style.transform = 'scale(0.98)';
+      // Add smooth chart transition (skip visual fade when printing)
+      canvas.style.opacity = isPrintMode ? '1' : '0.3';
+      canvas.style.transform = isPrintMode ? 'scale(1)' : 'scale(0.98)';
       
       const colors=labels.map((_,i)=>PALETTE[i%PALETTE.length]);
       charts[id]=new Chart(canvas,{
         type: doughnut?'doughnut':'pie',
-        data:{labels,datasets:[{data,backgroundColor:colors}]},
+        data:{labels,datasets:[{
+          data,
+          backgroundColor:colors,
+          borderColor: isPrintMode ? '#ffffff' : 'rgba(255,255,255,0.7)',
+          borderWidth: isPrintMode ? 2 : 1
+        }]},
         options:{
+          devicePixelRatio: isPrintMode ? printDpr : (window.devicePixelRatio || 1),
           plugins:{
             legend:{
-              position:'right',
+              position: isPrintMode ? 'bottom' : 'right',
               align: 'center',
               labels: {
                 usePointStyle: true,
                 pointStyle: 'rect',
-                padding: 15,
+                padding: isPrintMode ? 10 : 15,
+                color: isPrintMode ? '#111827' : '#374151',
                 font: {
-                  size: 12
+                  size: isPrintMode ? 13 : 12
                 },
                 generateLabels: function(chart) {
                   const data = chart.data;
@@ -520,6 +699,7 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
               }
             },
             tooltip: {
+              enabled: !isPrintMode,
               callbacks: {
                 label: function(context) {
                   const total = context.dataset.data.reduce((a, b) => a + b, 0);
@@ -548,8 +728,8 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
           },
           cutout: doughnut?'55%':0,
           animation: {
-            duration: 1200,
-            easing: 'easeOutBounce',
+            duration: isPrintMode ? 0 : 1200,
+            easing: isPrintMode ? 'linear' : 'easeOutBounce',
             onComplete: () => {
               canvas.classList.add('loaded');
             }
@@ -558,12 +738,101 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       });
       
       // Complete chart transition
-      setTimeout(() => {
+      if (isPrintMode) {
         canvas.style.opacity = '1';
         canvas.style.transform = 'scale(1)';
         canvas.classList.add('loaded');
-      }, 300);
+      } else {
+        setTimeout(() => {
+          canvas.style.opacity = '1';
+          canvas.style.transform = 'scale(1)';
+          canvas.classList.add('loaded');
+        }, 300);
+      }
     };
+
+    /* ===== Load data from backend ===== */
+    async function fetchStats(fromMonth='', toMonth=''){
+      try{
+        const params = new URLSearchParams();
+        if (fromMonth && toMonth) {
+          params.set('from', fromMonth);
+          params.set('to', toMonth);
+        } else {
+          params.set('months', String(monthsWindow));
+        }
+        const resp = await fetch('./actions/get_statistical_data.php?' + params.toString(), { credentials: 'same-origin' });
+        if (!resp.ok) throw new Error('Network response not ok');
+        const json = await resp.json();
+        if (!json.ok) throw new Error(json.error || 'Invalid data');
+        apiLabels = Array.isArray(json.labels) ? json.labels.slice() : [];
+
+        if (Array.isArray(json.spot && json.spot.series ? json.spot.series : [])) {
+          m_spot_reports.length = 0;
+          m_spot_reports.push(...json.spot.series);
+        }
+        if (Array.isArray(json.cases && json.cases.series ? json.cases.series : [])) {
+          m_cases_opened.length = 0;
+          m_cases_opened.push(...json.cases.series);
+        }
+        if (json.apprehended) {
+          const personsSeries = Array.isArray(json.apprehended.persons && json.apprehended.persons.series ? json.apprehended.persons.series : (json.apprehended.persons || [])) ? (json.apprehended.persons.series || json.apprehended.persons || []) : [];
+          const vehiclesSeries = Array.isArray(json.apprehended.vehicles && json.apprehended.vehicles.series ? json.apprehended.vehicles.series : (json.apprehended.vehicles || [])) ? (json.apprehended.vehicles.series || json.apprehended.vehicles || []) : [];
+          const itemsSeries = Array.isArray(json.apprehended.items && json.apprehended.items.series ? json.apprehended.items.series : (json.apprehended.items || [])) ? (json.apprehended.items.series || json.apprehended.items || []) : [];
+          m_app_individuals.length = 0;
+          m_app_individuals.push(...personsSeries);
+          m_app_vehicles.length = 0;
+          m_app_vehicles.push(...vehiclesSeries);
+          m_app_items.length = 0;
+          m_app_items.push(...itemsSeries);
+        }
+
+        if (json.spot && json.spot.by_status) {
+          spotStatusLabels.length = 0;
+          spotStatusCounts.length = 0;
+          Object.entries(json.spot.by_status).forEach(([k, v]) => {
+            spotStatusLabels.push(k);
+            spotStatusCounts.push(v);
+          });
+        }
+        if (json.cases && json.cases.by_status) {
+          caseStatusLabels.length = 0;
+          caseStatusCounts.length = 0;
+          Object.entries(json.cases.by_status).forEach(([k, v]) => {
+            caseStatusLabels.push(k);
+            caseStatusCounts.push(v);
+          });
+        }
+
+        if (json.breakdowns) {
+          if (json.breakdowns.roles) {
+            rolesLabels.length = 0;
+            rolesCounts.length = 0;
+            Object.entries(json.breakdowns.roles).forEach(([k, v]) => { rolesLabels.push(k); rolesCounts.push(v); });
+          }
+          if (json.breakdowns.genders) {
+            genderLabels.length = 0;
+            genderCounts.length = 0;
+            Object.entries(json.breakdowns.genders).forEach(([k, v]) => { genderLabels.push(k); genderCounts.push(v); });
+          }
+          if (json.breakdowns.vehicles_make) {
+            vehicleStatusLabels.length = 0;
+            vehicleStatusCounts.length = 0;
+            Object.entries(json.breakdowns.vehicles_make).forEach(([k, v]) => { vehicleStatusLabels.push(k); vehicleStatusCounts.push(v); });
+          }
+          if (json.breakdowns.items_type) {
+            itemTypeLabels.length = 0;
+            itemTypeCounts.length = 0;
+            Object.entries(json.breakdowns.items_type).forEach(([k, v]) => { itemTypeLabels.push(k); itemTypeCounts.push(v); });
+          }
+        }
+
+        return json;
+      }catch(err){
+        console.error('fetchStats error', err);
+        return null;
+      }
+    }
 
     /* ===== UI wiring ===== */
     const tabsWrap = document.getElementById('tabs');
@@ -573,6 +842,10 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     const showAllEl= document.getElementById('showAll');
     const printBtn = document.getElementById('printBtn');
     const exportBtn= document.getElementById('exportCsv');
+    const printMetaDetails = document.getElementById('printMetaDetails');
+    let printingInProgress = false;
+    let isPrintMode = false;
+    let originalRender = null;
 
     let activeTab = 'spot';
 
@@ -584,7 +857,6 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       document.getElementById('from').value = `${fromDate.getFullYear()}-${String(fromDate.getMonth()+1).padStart(2,'0')}`;
     })();
 
-    document.getElementById('generate').addEventListener('click', render);
     tabbar.addEventListener('click', (e)=>{
       const btn = e.target.closest('.tab'); if(!btn) return;
       [...tabbar.children].forEach(b=>b.classList.remove('active'));
@@ -596,10 +868,82 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       tabsWrap.style.display = showAllEl.checked ? 'none' : '';
       render();
     });
-    printBtn.addEventListener('click', ()=>window.print());
-    exportBtn.addEventListener('click', ()=>exportCurrentCSV());
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    async function printReport(){
+      if (printingInProgress) return;
+      printingInProgress = true;
+
+      const wasShowAll = !!showAllEl.checked;
+      const rerenderImmediate = async () => {
+        if (typeof originalRender === 'function') {
+          await originalRender();
+          return;
+        }
+        await render();
+      };
+      try {
+        isPrintMode = true;
+        showAllEl.checked = true;
+        tabsWrap.style.display = 'none';
+        updatePrintMeta();
+        await rerenderImmediate();
+        await sleep(220);
+        Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        await sleep(120);
+        window.print();
+      } finally {
+        isPrintMode = false;
+        showAllEl.checked = wasShowAll;
+        tabsWrap.style.display = wasShowAll ? 'none' : '';
+        await rerenderImmediate();
+        Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+        printingInProgress = false;
+      }
+    }
+    printBtn.addEventListener('click', printReport);
+    window.addEventListener('beforeprint', ()=>{
+      updatePrintMeta();
+      Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+    });
+    window.addEventListener('afterprint', ()=>{
+      Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+    });
+    window.addEventListener('keydown', (e)=>{
+      if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 'p') {
+        e.preventDefault();
+        printReport();
+      }
+    });
+    exportBtn.addEventListener('click', () => {
+      exportCurrentCSV().catch(err => {
+        console.error('CSV export failed', err);
+        alert('Unable to export CSV. Please try again.');
+      });
+    });
 
     // helpers
+    function monthPretty(ym){
+      if (!ym || !/^\d{4}-\d{2}$/.test(String(ym))) return String(ym || '');
+      const [y,m] = String(ym).split('-').map(Number);
+      const d = new Date(y, m - 1, 1);
+      return d.toLocaleDateString(undefined, { month:'long', year:'numeric' });
+    }
+    function updatePrintMeta(){
+      if (!printMetaDetails) return;
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const gran = document.getElementById('granularity').value;
+      const stamp = new Date().toLocaleString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+      });
+      const rangeText = `${monthPretty(from)} to ${monthPretty(to)}`;
+      printMetaDetails.textContent = `Reporting Period: ${rangeText} | Granularity: ${labelize(gran)} | Generated on: ${stamp}`;
+    }
     function kpiStrip(obj){ return Object.entries(obj).map(([k,v])=>`
       <div class="kpi"><div class="label">${k}</div><div class="value">${v}</div></div>`).join(''); }
     const card = (id,title)=>`
@@ -613,26 +957,19 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       const a=document.createElement('a'); a.download=id+'.png'; a.href=charts[id].toBase64Image(); a.click();
     });
 
-    function sliceForRange(series, baseMonths){
-      const n = baseMonths.length;
-      const start = Math.max(0, series.length - n);
-      return series.slice(start, start+n);
-    }
-
     function renderKPIsOverall(gran, baseMonths){
-      const aSpot = aggregate(sliceForRange(m_spot_reports, baseMonths), baseMonths, gran);
-      const aCases= aggregate(sliceForRange(m_cases_opened, baseMonths), baseMonths, gran);
-      const aInd  = aggregate(sliceForRange(m_app_individuals, baseMonths), baseMonths, gran);
-      const aVeh  = aggregate(sliceForRange(m_app_vehicles, baseMonths), baseMonths, gran);
-      const aItm  = aggregate(sliceForRange(m_app_items, baseMonths), baseMonths, gran);
+      const aSpot = aggregate(m_spot_reports, baseMonths, gran);
+      const aCases= aggregate(m_cases_opened, baseMonths, gran);
+      const aInd  = aggregate(m_app_individuals, baseMonths, gran);
+      const aVeh  = aggregate(m_app_vehicles, baseMonths, gran);
+      const aItm  = aggregate(m_app_items, baseMonths, gran);
 
       kpisDiv.innerHTML = kpiStrip({
         'Total Spot Reports': sum(aSpot.data),
         'Total Cases Opened': sum(aCases.data),
         'Apprehended Individuals': sum(aInd.data),
         'Apprehended Vehicles': sum(aVeh.data),
-        'Apprehended Items': sum(aItm.data),
-        'Completed Service Requests': svcStatusCounts[3]
+        'Apprehended Items': sum(aItm.data)
       });
     }
 
@@ -644,33 +981,138 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       }).join(',')).join('\n');
     }
     function downloadCSV(filename, csv){
-      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const blob = new Blob(['\ufeff', csv], {type:'text/csv;charset=utf-8;'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = filename;
+      document.body.appendChild(a);
       a.click();
+      a.remove();
       setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
     }
-    function exportCurrentCSV(){
+    function pushCSVSection(rows, title, headers, values){
+      rows.push([title]);
+      rows.push(headers);
+      if (Array.isArray(values) && values.length){
+        values.forEach(v => rows.push(v));
+      } else {
+        rows.push(['No data', 0]);
+      }
+      rows.push([]);
+    }
+    async function exportCurrentCSV(){
       const gran = document.getElementById('granularity').value;
       const from = document.getElementById('from').value;
       const to   = document.getElementById('to').value;
+      if (!from || !to){ alert('Please select From and To months.'); return; }
       const baseMonths = monthsBetween(from, to);
+      if (!baseMonths.length){ alert('Invalid month range.'); return; }
       const scope = showAllEl.checked ? 'all' : activeTab;
+      const payload = await fetchStats(from, to);
+      if (!payload) {
+        alert('Unable to load statistical data for export.');
+        return;
+      }
+
+      let effectiveMonths = baseMonths;
+      if (Array.isArray(apiLabels) && apiLabels.length > 0) {
+        effectiveMonths = apiLabels.map(label => {
+          const [y, m] = String(label).split('-').map(Number);
+          return { y, m, label: String(label) };
+        });
+      }
+
+      const spotSeries = aggregate(m_spot_reports, effectiveMonths, gran);
+      const caseSeries = aggregate(m_cases_opened, effectiveMonths, gran);
+      const indSeries  = aggregate(m_app_individuals, effectiveMonths, gran);
+      const vehSeries  = aggregate(m_app_vehicles, effectiveMonths, gran);
+      const itemSeries = aggregate(m_app_items, effectiveMonths, gran);
+
+      const kpiRows = [
+        ['Total Spot Reports', sum(spotSeries.data)],
+        ['Total Cases Opened', sum(caseSeries.data)],
+        ['Apprehended Individuals', sum(indSeries.data)],
+        ['Apprehended Vehicles', sum(vehSeries.data)],
+        ['Apprehended Items', sum(itemSeries.data)]
+      ];
+
+      const sectionMap = {
+        spot: {
+          name: 'Spot Reports',
+          timeTitle: `Spot Reports Over Time (${labelize(gran)})`,
+          time: spotSeries,
+          distTitle: 'Spot Report Status Distribution',
+          distLabels: spotStatusLabels,
+          distCounts: spotStatusCounts
+        },
+        cases: {
+          name: 'Case Management',
+          timeTitle: `Cases Opened Over Time (${labelize(gran)})`,
+          time: caseSeries,
+          distTitle: 'Case Status Distribution',
+          distLabels: caseStatusLabels,
+          distCounts: caseStatusCounts
+        },
+        app_individuals: {
+          name: 'Apprehended Individuals',
+          timeTitle: `Individuals Apprehended Over Time (${labelize(gran)})`,
+          time: indSeries,
+          distTitle: 'Roles and Gender Distribution',
+          distLabels: rolesLabels.concat(genderLabels.map(g => `Gender: ${g}`)),
+          distCounts: rolesCounts.concat(genderCounts)
+        },
+        app_vehicles: {
+          name: 'Apprehended Vehicles',
+          timeTitle: `Vehicles Apprehended Over Time (${labelize(gran)})`,
+          time: vehSeries,
+          distTitle: 'Vehicle Status Distribution',
+          distLabels: vehicleStatusLabels,
+          distCounts: vehicleStatusCounts
+        },
+        app_items: {
+          name: 'Apprehended Items',
+          timeTitle: `Items Apprehended Over Time (${labelize(gran)})`,
+          time: itemSeries,
+          distTitle: 'Item Type Distribution',
+          distLabels: itemTypeLabels,
+          distCounts: itemTypeCounts
+        }
+      };
+      const selectedTabs = showAllEl.checked
+        ? ['spot', 'cases', 'app_individuals', 'app_vehicles', 'app_items']
+        : [activeTab];
 
       const sections = [];
-      const header = [['CENRO Statistical Report'],
-                      ['Generated On', new Date().toLocaleDateString()],
-                      ['From', from], ['To', to], ['Exported At', new Date().toLocaleString()]];
-      sections.push(header, [['']]);
+      sections.push(['CENRO Statistical Report']);
+      sections.push(['Scope', showAllEl.checked ? 'All Modules' : (sectionMap[activeTab]?.name || activeTab)]);
+      sections.push(['From', from]);
+      sections.push(['To', to]);
+      sections.push(['Granularity', labelize(gran)]);
+      sections.push(['Exported At', new Date().toLocaleString()]);
+      sections.push([]);
 
-      // Export current data
-      const csv = toCSV(sections.flat());
+      pushCSVSection(sections, 'KPI Summary', ['Metric', 'Value'], kpiRows);
+
+      selectedTabs.forEach(tab => {
+        const cfg = sectionMap[tab];
+        if (!cfg) return;
+
+        sections.push([`Section: ${cfg.name}`]);
+        sections.push([]);
+
+        const timeRows = cfg.time.labels.map((label, i) => [label, cfg.time.data[i] || 0]);
+        pushCSVSection(sections, cfg.timeTitle, ['Period', 'Count'], timeRows);
+
+        const distRows = (cfg.distLabels || []).map((label, i) => [label, (cfg.distCounts && cfg.distCounts[i]) || 0]);
+        pushCSVSection(sections, cfg.distTitle, ['Category', 'Count'], distRows);
+      });
+
+      const csv = toCSV(sections);
       downloadCSV(`cenro_report_${scope}_${from}_to_${to}.csv`, csv);
     }
 
     /* ===== Render (Tabs mode OR Show-All) ===== */
-    function render(){
+    async function render(){
       const gran = document.getElementById('granularity').value;
       const from = document.getElementById('from').value;
       const to   = document.getElementById('to').value;
@@ -683,20 +1125,34 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
         baseMonths.splice(monthsWindow);
       }
 
+      const payload = await fetchStats(from, to);
+      if (!payload) {
+        alert('Unable to load statistical data for the selected range.');
+        return;
+      }
+
+      let effectiveMonths = baseMonths;
+      if (Array.isArray(apiLabels) && apiLabels.length > 0) {
+        effectiveMonths = apiLabels.map(label => {
+          const [y, m] = String(label).split('-').map(Number);
+          return { y, m, label: String(label) };
+        });
+      }
+
       // destroy old charts
       Object.values(charts).forEach(c=>c.destroy && c.destroy());
       for (const k in charts) delete charts[k];
       host.innerHTML='';
 
       // KPIs across modules
-      renderKPIsOverall(gran, baseMonths);
+      renderKPIsOverall(gran, effectiveMonths);
 
       // aligned series for range
-      const spotSeries = aggregate(sliceForRange(m_spot_reports, baseMonths), baseMonths, gran);
-      const caseSeries = aggregate(sliceForRange(m_cases_opened, baseMonths), baseMonths, gran);
-      const indSeries  = aggregate(sliceForRange(m_app_individuals, baseMonths), baseMonths, gran);
-      const vehSeries  = aggregate(sliceForRange(m_app_vehicles, baseMonths), baseMonths, gran);
-      const itemSeries = aggregate(sliceForRange(m_app_items, baseMonths), baseMonths, gran);
+      const spotSeries = aggregate(m_spot_reports, effectiveMonths, gran);
+      const caseSeries = aggregate(m_cases_opened, effectiveMonths, gran);
+      const indSeries  = aggregate(m_app_individuals, effectiveMonths, gran);
+      const vehSeries  = aggregate(m_app_vehicles, effectiveMonths, gran);
+      const itemSeries = aggregate(m_app_items, effectiveMonths, gran);
 
       const gridStart = `<div class="grid">`, gridEnd = `</div>`;
 
@@ -727,16 +1183,6 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
           mkBar('itmBar', itemSeries.labels, itemSeries.data, 6);
           mkPie('itmPie', itemTypeLabels, itemTypeCounts, true);
         }
-        else if (activeTab==='locations'){
-          host.innerHTML = gridStart + card('locBar','Violations by Location') + card('locPie','Location Distribution') + gridEnd;
-          mkBar('locBar', locLabels, locCounts, 4);
-          mkPie('locPie', locLabels, locCounts, false);
-        }
-        else if (activeTab==='service'){
-          host.innerHTML = gridStart + card('svcStatusPie','Service Request Status') + card('svcDevPie','Device Types Serviced') + gridEnd;
-          mkPie('svcStatusPie', svcStatusLabels, svcStatusCounts, true);
-          mkPie('svcDevPie', svcDevicesLabels, svcDevicesCounts, false);
-        }
       } else {
         // SHOW-ALL MODE
         const sectionsHTML = [];
@@ -745,8 +1191,6 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
         sectionsHTML.push(`<div class="section"><h2>Apprehended Individuals</h2>${gridStart}${card('indBar',`Individuals Over Time (${labelize(gran)})`)}${card('rolePie','Roles & Gender')}${gridEnd}</div>`);
         sectionsHTML.push(`<div class="section"><h2>Apprehended Vehicles</h2>${gridStart}${card('vehBar',`Vehicles Over Time (${labelize(gran)})`)}${card('vehPie','Status Distribution')}${gridEnd}</div>`);
         sectionsHTML.push(`<div class="section"><h2>Apprehended Items</h2>${gridStart}${card('itmBar',`Items Over Time (${labelize(gran)})`)}${card('itmPie','Type Distribution')}${gridEnd}</div>`);
-        sectionsHTML.push(`<div class="section"><h2>Locations</h2>${gridStart}${card('locBar','Violations by Location')}${card('locPie','Distribution')}${gridEnd}</div>`);
-        sectionsHTML.push(`<div class="section"><h2>Service Desk</h2>${gridStart}${card('svcStatusPie','Request Status')}${card('svcDevPie','Device Types')}${gridEnd}</div>`);
 
         host.innerHTML = sectionsHTML.join('');
 
@@ -760,10 +1204,6 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
         mkPie('vehPie', vehicleStatusLabels, vehicleStatusCounts, true);
         mkBar('itmBar', itemSeries.labels, itemSeries.data, 6);
         mkPie('itmPie', itemTypeLabels, itemTypeCounts, true);
-        mkBar('locBar', locLabels, locCounts, 4);
-        mkPie('locPie', locLabels, locCounts, false);
-        mkPie('svcStatusPie', svcStatusLabels, svcStatusCounts, true);
-        mkPie('svcDevPie', svcDevicesLabels, svcDevicesCounts, false);
       }
     }
 
@@ -787,7 +1227,7 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     }
     
     // Override render function to include transitions
-    const originalRender = render;
+    originalRender = render;
     render = function() {
       addContentTransition();
       setTimeout(() => {

@@ -121,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // vehicles
     $plates = isset($_POST['vehicle_plate']) ? $_POST['vehicle_plate'] : array();
     $makes = isset($_POST['vehicle_make']) ? $_POST['vehicle_make'] : array();
+    $custom_makes = isset($_POST['vehicle_make_custom']) ? $_POST['vehicle_make_custom'] : array();
     $colors = isset($_POST['vehicle_color']) ? $_POST['vehicle_color'] : array();
     $owners = isset($_POST['vehicle_owner']) ? $_POST['vehicle_owner'] : array();
     $vcontacts = isset($_POST['vehicle_contact']) ? $_POST['vehicle_contact'] : array();
@@ -138,7 +139,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $vStmt->execute([
         ':rid' => $reportId,
         ':plate' => $pl,
-        ':make' => trim((string)(isset($makes[$i]) ? $makes[$i] : '')),
+        ':make' => (function() use ($makes, $custom_makes, $i) {
+          $selected = trim((string)(isset($makes[$i]) ? $makes[$i] : ''));
+          $custom = trim((string)(isset($custom_makes[$i]) ? $custom_makes[$i] : ''));
+          return ($selected === '__custom__') ? $custom : $selected;
+        })(),
         ':color' => trim((string)(isset($colors[$i]) ? $colors[$i] : '')),
         ':owner' => $ow,
         ':contact' => trim((string)(isset($vcontacts[$i]) ? $vcontacts[$i] : '')),
@@ -695,6 +700,150 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($ref) && $ref) {
   <!-- Spot Report Form JavaScript -->
   <script>
     // Reference number is provided by user (no auto-generation)
+    const VEHICLE_MAKE_MODEL_OPTIONS = [
+      'Toyota - Vios',
+      'Toyota - Wigo',
+      'Toyota - Yaris',
+      'Toyota - Corolla Altis',
+      'Toyota - Corolla Cross',
+      'Toyota - Camry',
+      'Toyota - Raize',
+      'Toyota - Rush',
+      'Toyota - Avanza',
+      'Toyota - Innova',
+      'Toyota - Fortuner',
+      'Toyota - Hilux',
+      'Toyota - Land Cruiser',
+      'Toyota - Hiace',
+      'Mitsubishi - Mirage',
+      'Mitsubishi - Mirage G4',
+      'Mitsubishi - Xpander',
+      'Mitsubishi - Montero Sport',
+      'Mitsubishi - Strada',
+      'Mitsubishi - L300',
+      'Nissan - Almera',
+      'Nissan - Navara',
+      'Nissan - Terra',
+      'Nissan - Urvan',
+      'Ford - Ranger',
+      'Ford - Everest',
+      'Ford - Territory',
+      'Isuzu - D-Max',
+      'Isuzu - mu-X',
+      'Isuzu - Traviz',
+      'Honda - Brio',
+      'Honda - City',
+      'Honda - Civic',
+      'Honda - HR-V',
+      'Honda - BR-V',
+      'Honda - CR-V',
+      'Hyundai - Accent',
+      'Hyundai - Reina',
+      'Hyundai - Tucson',
+      'Hyundai - Santa Fe',
+      'Hyundai - Starex',
+      'Hyundai - H-100',
+      'Kia - Soluto',
+      'Kia - Stonic',
+      'Kia - Seltos',
+      'Kia - Sportage',
+      'Kia - Carnival',
+      'Suzuki - Dzire',
+      'Suzuki - Celerio',
+      'Suzuki - Swift',
+      'Suzuki - Ertiga',
+      'Suzuki - XL7',
+      'Suzuki - Jimny',
+      'Suzuki - Carry',
+      'Mazda - Mazda2',
+      'Mazda - Mazda3',
+      'Mazda - CX-3',
+      'Mazda - CX-5',
+      'Mazda - BT-50',
+      'Chevrolet - Spark',
+      'Chevrolet - Sail',
+      'Chevrolet - Tracker',
+      'Chevrolet - Trailblazer',
+      'Chevrolet - Colorado',
+      'Subaru - XV',
+      'Subaru - Forester',
+      'Subaru - Outback',
+      'Hino - 300 Series',
+      'Hino - 500 Series',
+      'Hino - 700 Series',
+      'Fuso - Canter',
+      'Fuso - Fighter',
+      'Fuso - Super Great',
+      'UD Trucks - Croner',
+      'UD Trucks - Quester',
+      'Foton - Tornado',
+      'Foton - Thunder',
+      'Dongfeng - Captain',
+      'Dongfeng - KR Series',
+      'Sinotruk/Howo - Howo A7',
+      'Sinotruk/Howo - Howo NX',
+      'Caterpillar - 320',
+      'Caterpillar - 336',
+      'Caterpillar - D6',
+      'Caterpillar - 966',
+      'Komatsu - PC200',
+      'Komatsu - PC300',
+      'Komatsu - D65',
+      'Komatsu - WA380',
+      'Hitachi - ZX200',
+      'Hitachi - ZX210',
+      'Volvo CE - EC210',
+      'Volvo CE - EC360',
+      'Honda (Motorcycle) - TMX',
+      'Honda (Motorcycle) - XRM',
+      'Honda (Motorcycle) - Wave',
+      'Honda (Motorcycle) - Click',
+      'Yamaha - Mio',
+      'Yamaha - NMAX',
+      'Yamaha - Sniper',
+      'Yamaha - Aerox',
+      'Kawasaki - Barako',
+      'Kawasaki - Rouser',
+      'Suzuki (Motorcycle) - Raider',
+      'Suzuki (Motorcycle) - Smash',
+      'Rusi - Rusi 125',
+      'Motorstar - Star-X'
+    ];
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function buildVehicleMakeModelSelect() {
+      const options = VEHICLE_MAKE_MODEL_OPTIONS
+        .map(function(item) { return '<option value="' + escapeHtml(item) + '">' + escapeHtml(item) + '</option>'; })
+        .join('');
+      return `
+        <select class="form-select vehicle-make-select" name="vehicle_make[]" onchange="toggleVehicleCustomInput(this)">
+          <option value="">Select Make/Model</option>
+          ${options}
+          <option value="__custom__">Add model</option>
+        </select>
+        <input type="text" class="form-control mt-2 vehicle-make-custom d-none" name="vehicle_make_custom[]" placeholder="Enter make/model (custom)">
+      `;
+    }
+
+    function toggleVehicleCustomInput(selectEl) {
+      if (!selectEl) return;
+      const holder = selectEl.closest('td');
+      if (!holder) return;
+      const customInput = holder.querySelector('.vehicle-make-custom');
+      if (!customInput) return;
+      const useCustom = selectEl.value === '__custom__';
+      customInput.classList.toggle('d-none', !useCustom);
+      customInput.required = useCustom;
+      if (!useCustom) customInput.value = '';
+    }
 
     // Add person row
     function addPersonRow() {
@@ -764,7 +913,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($ref) && $ref) {
       const newRow = `
         <tr>
           <td><input type="text" class="form-control" name="vehicle_plate[]" placeholder="Plate Number"></td>
-          <td><input type="text" class="form-control" name="vehicle_make[]" placeholder="Make/Model"></td>
+          <td>${buildVehicleMakeModelSelect()}</td>
           <td><input type="text" class="form-control" name="vehicle_color[]" placeholder="Color"></td>
           <td><input type="text" class="form-control" name="vehicle_owner[]" placeholder="Owner Name"></td>
           <td><input type="text" class="form-control" name="vehicle_contact[]" placeholder="Contact Number"></td>

@@ -644,13 +644,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile']) && 
       margin-bottom: 20px;
     }
 
+    /* Ensure profile-image is always circular */
     .profile-image {
       width: 150px;
       height: 150px;
-      border-radius: 50%;
+      border-radius: 50% !important;
       object-fit: cover;
       border: 4px solid #0038A8;
       box-shadow: 0 4px 15px rgba(0,56,168,0.2);
+    }
+
+    /* Topbar profile image should be a boxed thumbnail */
+    .topbar-profile-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px !important;
+      object-fit: cover;
+      border: 2px solid transparent;
     }
 
     .info-group {
@@ -693,6 +703,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile']) && 
     }
 
 
+
   </style>
-</body>
 </html>

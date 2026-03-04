@@ -40,7 +40,7 @@
         <ul>
           <li><a href="dashboard.php"><i class="fa fa-th-large"></i> Dashboard</a></li>
           <li><a href="spot_reports.php"><i class="fa fa-file-text"></i> Spot Reports</a></li>
-          <li class="active"><a href="case_management.php"><i class="fa fa-briefcase"></i> Case Management</a></li>
+          <li><a href="case_management.php"><i class="fa fa-briefcase"></i> Case Management</a></li>
           <li><a href="apprehended_items.php"><i class="fa fa-archive"></i> Apprehended Items</a></li>
           <li><a href="service_requests.php"><i class="fa fa-cog"></i> Service Requests</a></li>
           <li><a href="statistical_report.php"><i class="fa fa-chart-bar"></i> Statistical Report</a></li>

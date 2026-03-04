@@ -136,24 +136,44 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
                   </div>
                   <div class="mt-3">
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #fd7e14;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #007bff;"></div>
                       <small class="text-muted">Under Investigation: <span id="caseUnderInvestigation" class="fw-bold text-dark">—</span></small>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #ffc107;"></div>
+                      <small class="text-muted">Pending Review: <span id="casePendingReview" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
                       <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #ffc107;"></div>
                       <small class="text-muted">For Filing: <span id="caseForFiling" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #6c757d;"></div>
+                      <small class="text-muted">Filed in Court: <span id="caseFiledInCourt" class="fw-bold text-dark">—</span></small>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
                       <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #17a2b8;"></div>
-                      <small class="text-muted">On Going: <span id="caseOnGoing" class="fw-bold text-dark">—</span></small>
+                      <small class="text-muted">Ongoing Trial: <span id="caseOngoingTrial" class="fw-bold text-dark">—</span></small>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #28a745;"></div>
+                      <small class="text-muted">Resolved: <span id="caseResolved" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
                       <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #dc3545;"></div>
                       <small class="text-muted">Dismissed: <span id="caseDismissed" class="fw-bold text-dark">—</span></small>
                     </div>
+                    <div class="d-flex align-items-center mb-1">
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #343a40;"></div>
+                      <small class="text-muted">Archived: <span id="caseArchived" class="fw-bold text-dark">—</span></small>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #dc3545;"></div>
+                      <small class="text-muted">On Hold: <span id="caseOnHold" class="fw-bold text-dark">—</span></small>
+                    </div>
                     <div class="d-flex align-items-center">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #6c757d;"></div>
-                      <small class="text-muted">Resolved: <span id="caseResolved" class="fw-bold text-dark">—</span></small>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #20c997;"></div>
+                      <small class="text-muted">Under Appeal: <span id="caseUnderAppeal" class="fw-bold text-dark">—</span></small>
                     </div>
                   </div>
                   <div class="position-absolute" style="top: -20px; right: -20px; width: 100px; height: 100px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 50%; opacity: 0.1;"></div>
@@ -207,14 +227,26 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
                     </div>
                   </div>
                   <div class="mt-3">
-                    <div class="d-flex align-items-center mb-2">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #28a745;"></div>
-                      <small class="text-muted">In Use: <span id="equipmentInUseCount" class="fw-bold text-dark">—</span></small>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #ffc107;"></div>
-                      <small class="text-muted">Available: <span id="equipmentAvailableCount" class="fw-bold text-dark">—</span></small>
-                    </div>
+                      <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #28a745;"></div>
+                        <small class="text-muted">Assigned: <span id="equipmentAssignedCount" class="fw-bold text-dark">—</span></small>
+                      </div>
+                      <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #ffc107;"></div>
+                        <small class="text-muted">Available: <span id="equipmentAvailableCount" class="fw-bold text-dark">—</span></small>
+                      </div>
+                      <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #17a2b8;"></div>
+                        <small class="text-muted">Under Maintenance: <span id="equipmentUnderMaintenanceCount" class="fw-bold text-dark">—</span></small>
+                      </div>
+                      <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #dc3545;"></div>
+                        <small class="text-muted">Damaged: <span id="equipmentDamagedCount" class="fw-bold text-dark">—</span></small>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #6c757d;"></div>
+                        <small class="text-muted">Out of Service: <span id="equipmentOutOfServiceCount" class="fw-bold text-dark">—</span></small>
+                      </div>
                   </div>
                   <div class="position-absolute" style="top: -20px; right: -20px; width: 100px; height: 100px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 50%; opacity: 0.1;"></div>
                 </div>
@@ -369,81 +401,242 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       });
     }
 
-    // Initialize dashboard charts
+    // Initialize dashboard charts and return references
     function initializeDashboardCharts() {
-      // Sample chart data
+      const charts = {};
       const ctx1 = document.getElementById('spotReportsChart');
       const ctx2 = document.getElementById('caseStatusChart');
       const ctx3 = document.getElementById('equipmentChart');
       const ctx4 = document.getElementById('userRolesChart');
-      
+
       if (ctx1) {
-        // Chart data should be loaded from the server/API. Initialize empty chart for now.
-        new Chart(ctx1, {
+        charts.spotReports = new Chart(ctx1, {
           type: 'bar',
           data: {
-            labels: [],
+            labels: ['Approved','Pending','Rejected'],
             datasets: [{
               label: 'Spot Reports',
-              data: [],
-              backgroundColor: []
+              data: [0,0,0],
+              backgroundColor: ['#28a745','#ffc107','#dc3545']
             }]
-          }
+          },
+          options: { responsive: true, maintainAspectRatio: false }
         });
       }
-      
+
       if (ctx2) {
-        // Case status distribution - data to be provided dynamically
-        new Chart(ctx2, {
+        charts.caseStatus = new Chart(ctx2, {
           type: 'doughnut',
           data: {
-            labels: [],
+            labels: [
+              'Under Investigation',
+              'Pending Review',
+              'For Filing',
+              'Filed in Court',
+              'Ongoing Trial',
+              'Resolved',
+              'Dismissed',
+              'Archived',
+              'On Hold',
+              'Under Appeal'
+            ],
             datasets: [{
-              data: [],
-              backgroundColor: []
+              data: [0,0,0,0,0,0,0,0,0,0],
+              backgroundColor: ['#007bff','#ffc107','#ffc107','#6c757d','#17a2b8','#28a745','#dc3545','#343a40','#dc3545','#20c997']
             }]
           },
           options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            cutout: '45%',
+            plugins: {
+              legend: { position: 'right', labels: { boxWidth: 12 } },
+              datalabels: {
+                color: '#ffffff',
+                formatter: function(value) { return value > 0 ? value : ''; },
+                font: { weight: 'bold', size: 12 }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const v = context.parsed || 0;
+                    const data = context.chart.data.datasets[0].data || [];
+                    const sum = data.reduce((a,b) => a + (b || 0), 0);
+                    const pct = sum ? ((v / sum) * 100).toFixed(1) + '%' : '0%';
+                    return context.label + ': ' + v + ' (' + pct + ')';
+                  }
+                }
+              }
+            }
           }
         });
       }
-      
+
       if (ctx3) {
-        new Chart(ctx3, {
+        charts.equipment = new Chart(ctx3, {
           type: 'bar',
           data: {
-            labels: [],
-            datasets: [{
-              label: 'Equipment',
-              data: [],
-              backgroundColor: []
-            }]
+            labels: ['Assigned','Available','Under Maintenance','Damaged','Out of Service'],
+            datasets: [{ label: 'Equipment', data: [0,0,0,0,0], backgroundColor: ['#28a745','#ffc107','#17a2b8','#dc3545','#6c757d'] }]
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false
-          }
+          options: { responsive: true, maintainAspectRatio: false }
         });
       }
-      
+
       if (ctx4) {
-        new Chart(ctx4, {
+        charts.userRoles = new Chart(ctx4, {
           type: 'doughnut',
-          data: {
-            labels: [],
-            datasets: [{
-              data: [],
-              backgroundColor: []
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false
-          }
+          data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] },
+          options: { responsive: true, maintainAspectRatio: false }
         });
       }
+
+      // expose charts globally for updates
+      window.dashboardCharts = charts;
+      return charts;
+    }
+
+    // Fetch dashboard counts from backend and update DOM + charts
+    function loadDashboardData() {
+      const url = '/prototype/app/api/dashboard_counts.php';
+      fetch(url, { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(data => {
+          // Basic counts
+          if (data.total_users !== undefined) document.getElementById('totalUsersCount').textContent = data.total_users;
+          if (data.spot_reports) {
+            document.getElementById('spotReportsCount').textContent = data.spot_reports.total ?? '—';
+            document.getElementById('spotApprovedCount').textContent = data.spot_reports.approved ?? '—';
+            document.getElementById('spotPendingCount').textContent = data.spot_reports.pending ?? '—';
+            document.getElementById('spotRejectedCount').textContent = data.spot_reports.rejected ?? '—';
+            const srChart = window.dashboardCharts && window.dashboardCharts.spotReports;
+            if (srChart) {
+              srChart.data.datasets[0].data = [data.spot_reports.approved ?? 0, data.spot_reports.pending ?? 0, data.spot_reports.rejected ?? 0];
+              srChart.update();
+            }
+          }
+
+          if (data.cases) {
+            document.getElementById('caseManagementCount').textContent = data.cases.total ?? '—';
+            // helper: normalize strings for robust matching
+            function normalizeKey(s) {
+              if (!s && s !== 0) return '';
+              return String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+            }
+
+            // build normalized map of incoming status keys -> counts
+            const incoming = {};
+            Object.keys(data.cases.statuses || {}).forEach(k => {
+              incoming[normalizeKey(k)] = data.cases.statuses[k];
+            });
+
+            // map statuses into card elements using normalized lookup
+            const mapIds = {
+              'Under Investigation':'caseUnderInvestigation',
+              'Pending Review':'casePendingReview',
+              'For Filing':'caseForFiling',
+              'Filed in Court':'caseFiledInCourt',
+              'Ongoing Trial':'caseOngoingTrial',
+              'Resolved':'caseResolved',
+              'Dismissed':'caseDismissed',
+              'Archived':'caseArchived',
+              'On Hold':'caseOnHold',
+              'Under Appeal':'caseUnderAppeal'
+            };
+            Object.keys(mapIds).forEach(k => {
+              const el = document.getElementById(mapIds[k]);
+              if (!el) return;
+              const val = incoming[normalizeKey(k)];
+              el.textContent = (typeof val === 'number' ? val : (val ? val : 0));
+            });
+
+            // update case status chart with normalized matching
+            const ch = window.dashboardCharts && window.dashboardCharts.caseStatus;
+            if (ch) {
+              const labels = ch.data.labels || [];
+              ch.data.datasets[0].data = labels.map(lbl => {
+                const key = normalizeKey(lbl);
+                return incoming[key] ?? 0;
+              });
+              ch.update();
+            }
+          }
+
+          if (data.equipment) {
+            document.getElementById('equipmentCount').textContent = data.equipment.total ?? '—';
+            document.getElementById('equipmentAssignedCount').textContent = data.equipment.assigned ?? 0;
+            document.getElementById('equipmentAvailableCount').textContent = data.equipment.available ?? 0;
+            document.getElementById('equipmentUnderMaintenanceCount').textContent = data.equipment.under_maintenance ?? 0;
+            document.getElementById('equipmentDamagedCount').textContent = data.equipment.damaged ?? 0;
+            document.getElementById('equipmentOutOfServiceCount').textContent = data.equipment.out_of_service ?? 0;
+            const eq = window.dashboardCharts && window.dashboardCharts.equipment;
+            if (eq) {
+              eq.data.datasets[0].data = [
+                data.equipment.assigned ?? 0,
+                data.equipment.available ?? 0,
+                data.equipment.under_maintenance ?? 0,
+                data.equipment.damaged ?? 0,
+                data.equipment.out_of_service ?? 0
+              ];
+              eq.update();
+            }
+          }
+
+          if (data.service_requests) {
+            document.getElementById('serviceRequestsCount').textContent = data.service_requests.total ?? '—';
+            document.getElementById('servicePendingCount').textContent = data.service_requests.pending ?? '—';
+            document.getElementById('serviceOnGoingCount').textContent = data.service_requests.ongoing ?? '—';
+            document.getElementById('serviceCompletedCount').textContent = data.service_requests.completed ?? '—';
+          }
+
+          if (data.apprehended) {
+            document.getElementById('apprehendedCount').textContent = ((data.apprehended.persons ?? 0) + (data.apprehended.vehicles ?? 0) + (data.apprehended.items ?? 0));
+            document.getElementById('apprehendedPersonCount').textContent = data.apprehended.persons ?? '—';
+            document.getElementById('apprehendedVehiclesCount').textContent = data.apprehended.vehicles ?? '—';
+            document.getElementById('apprehendedItemsCount').textContent = data.apprehended.items ?? '—';
+          }
+
+          // User Roles Distribution: populate chart from API buckets or raw
+          try {
+            const urChart = window.dashboardCharts && window.dashboardCharts.userRoles;
+            if (urChart) {
+              // Only display these specific roles (ordered)
+              const normalize = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+              const roleMap = {};
+              if (data.user_roles && Object.keys(data.user_roles).length) {
+                Object.keys(data.user_roles).forEach(k => {
+                  roleMap[normalize(k)] = data.user_roles[k] || 0;
+                });
+              } else if (data.user_roles_raw && Object.keys(data.user_roles_raw).length) {
+                Object.keys(data.user_roles_raw).forEach(k => {
+                  roleMap[normalize(k)] = data.user_roles_raw[k] || 0;
+                });
+              }
+
+              const desired = [
+                { key: 'enforcement', label: 'Enforcement Officer' },
+                { key: 'enforcer', label: 'Enforcer' },
+                { key: 'property custodian', label: 'Property Custodian' },
+                { key: 'office staff', label: 'Office Staff' }
+              ];
+
+              const labels = desired.map(d => d.label);
+              const values = desired.map(d => roleMap[d.key] || 0);
+
+              urChart.data.labels = labels;
+              urChart.data.datasets[0].data = values;
+              // ensure palette length covers our labels
+              const palette = ['#28a745','#fd7e14','#6f42c1','#20c997','#007bff','#6c757d','#e83e8c','#ffc107'];
+              urChart.data.datasets[0].backgroundColor = labels.map((_,i) => palette[i % palette.length]);
+              urChart.update();
+            }
+          } catch (e) {
+            console.error('user roles update failed', e);
+          }
+
+        }).catch(err => {
+          console.error('Failed to load dashboard counts', err);
+        });
     }
     
     // Initialize everything when DOM is ready
@@ -476,10 +669,14 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
         }
       }, 200);
       
-      // Initialize charts after a short delay
+      // Initialize charts and load live data after a short delay
       setTimeout(function() {
         if (typeof Chart !== 'undefined') {
           initializeDashboardCharts();
+          // initial load
+          loadDashboardData();
+          // refresh every 30 seconds
+          setInterval(loadDashboardData, 30000);
         }
       }, 500);
     });

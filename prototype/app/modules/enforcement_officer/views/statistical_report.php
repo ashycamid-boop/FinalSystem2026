@@ -63,6 +63,7 @@
     /* "Show All" layout */
     .section{width:95%;margin:14px auto}
     .section h2{margin:10px 2px}
+    #printMeta{display:none}
 
     /* Main Content Transitions */
     .main-content {
@@ -125,14 +126,166 @@
     }
 
     /* Print */
+    @page{
+      size:A4 portrait;
+      margin:12mm;
+    }
     @media print{
-      body{background:#fff}
+      html,body{
+        background:#fff !important;
+        color:#000 !important;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+        font-size:11pt;
+        height:auto !important;
+        overflow:visible !important;
+      }
       .sidebar,.topbar,.iconbtn{display:none !important}
-      .layout{display:block}
-      .tabs{display:none}
-      .grid{grid-template-columns:1fr 1fr}
-      .kpis{grid-template-columns:repeat(3,1fr)}
-      .card canvas{height:200px !important;min-width:auto}
+      .layout{
+        display:block !important;
+        height:auto !important;
+        overflow:visible !important;
+      }
+      .main{
+        margin:0 !important;
+        width:100% !important;
+        max-width:none !important;
+        min-height:auto !important;
+        height:auto !important;
+        overflow:visible !important;
+      }
+      .main-content{
+        margin:0 !important;
+        width:100% !important;
+        max-width:none !important;
+        min-height:auto !important;
+        height:auto !important;
+        overflow:visible !important;
+        padding:0 !important;
+        background:#fff !important;
+        opacity:1 !important;
+        transform:none !important;
+        filter:none !important;
+        animation:none !important;
+      }
+      .main-content > *{
+        opacity:1 !important;
+        transform:none !important;
+        animation:none !important;
+      }
+      .main-content > div{
+        width:100% !important;
+        max-width:none !important;
+        padding:0 !important;
+        background:#fff !important;
+        overflow:visible !important;
+      }
+      #printMeta{
+        display:block !important;
+        width:100%;
+        margin:0 0 10px 0;
+        padding:0 0 8px 0;
+        border-bottom:2px solid #111827;
+      }
+      #printMeta .print-brand{
+        display:grid;
+        grid-template-columns:72px 1fr 72px;
+        align-items:center;
+        gap:12px;
+        margin:0 0 4px 0;
+      }
+      #printMeta .print-brand img{
+        height:64px;
+        width:auto;
+        object-fit:contain;
+        justify-self:center;
+      }
+      #printMeta .print-brand-center{
+        text-align:center;
+        line-height:1.2;
+      }
+      #printMeta .print-brand-center .line1{
+        font-size:8.5pt;
+        font-weight:700;
+        text-transform:uppercase;
+      }
+      #printMeta .print-brand-center .line2{
+        font-size:8pt;
+        text-transform:uppercase;
+      }
+      #printMeta .print-brand-center .line3{
+        font-size:8pt;
+        font-weight:700;
+      }
+      #printMeta .print-title{
+        font-size:15pt;
+        font-weight:800;
+        margin:2px 0 2px 0;
+        text-align:center;
+      }
+      #printMeta .print-sub{
+        font-size:9.5pt;
+        margin:0;
+        color:#374151;
+        text-align:center;
+      }
+      .tabs{display:none !important}
+      .kpis{
+        width:100% !important;
+        margin:0 0 10px 0 !important;
+        gap:8px !important;
+        grid-template-columns:repeat(3,1fr) !important;
+      }
+      .kpi{
+        background:#fff !important;
+        box-shadow:none !important;
+        border:1px solid #d1d5db !important;
+        padding:8px 10px !important;
+      }
+      .section{
+        background:#fff !important;
+        width:100% !important;
+        margin:0 0 10px 0 !important;
+        break-inside:avoid-page;
+        page-break-inside:avoid;
+      }
+      .section h2{
+        margin:8px 0 !important;
+        font-size:13pt !important;
+        break-after:avoid-page;
+        page-break-after:avoid;
+      }
+      .grid{
+        width:100% !important;
+        margin:0 !important;
+        grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+        gap:10px !important;
+      }
+      .card{
+        background:#fff !important;
+        box-shadow:none !important;
+        overflow:visible !important;
+        break-inside:avoid-page;
+        page-break-inside:avoid;
+        border:1px solid #d1d5db !important;
+        border-radius:8px !important;
+        min-height:auto !important;
+        padding:10px !important;
+      }
+      .card h3{
+        font-size:12pt !important;
+        margin-bottom:8px !important;
+        break-after:avoid-page;
+        page-break-after:avoid;
+      }
+      .card canvas{
+        background:#fff !important;
+        height:180px !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        break-before:avoid-page;
+        page-break-before:avoid;
+      }
     }
   </style>
 </head>
@@ -191,6 +344,20 @@
       <div class="main-content">
         <!-- Statistical Report Content -->
         <div style="padding: 20px;">
+          <div id="printMeta" aria-hidden="true">
+            <div class="print-brand">
+              <img src="../../../../public/assets/images/denr-logo.png" alt="DENR Logo">
+              <div class="print-brand-center">
+                <div class="line1">Department of Environment and Natural Resources</div>
+                <div class="line2">Kagawaran ng Kapaligiran at Likas Yaman</div>
+                <div class="line2">Caraga Region</div>
+                <div class="line3">CENRO Nasipit, Agusan del Norte</div>
+              </div>
+              <img src="../../../../public/assets/images/bagong-pilipinas-logo.png" alt="Bagong Pilipinas Logo">
+            </div>
+            <p class="print-title">CENRO Statistical Report</p>
+            <p class="print-sub" id="printMetaDetails"></p>
+          </div>
 
           <!-- Tabs (hidden when Show All) -->
           <div class="tabs" id="tabs">
@@ -298,6 +465,7 @@
     const svcDevicesLabels = [];
     const svcDevicesCounts = [];
     const svcStatusMap = {};
+    let apiLabels = [];
 
     /* ===== Chart builders (BAR / PIE only) ===== */
     const charts = {};
@@ -310,9 +478,9 @@
       
       if (charts[id]) charts[id].destroy();
       
-      // Add smooth chart transition
-      canvas.style.opacity = '0.3';
-      canvas.style.transform = 'scale(0.98)';
+      // Add smooth chart transition (skip fade while preparing print output)
+      canvas.style.opacity = printingInProgress ? '1' : '0.3';
+      canvas.style.transform = printingInProgress ? 'scale(1)' : 'scale(0.98)';
       
       charts[id]=new Chart(canvas,{
         type:'bar',
@@ -406,12 +574,13 @@
             }
           },
           animation: {
-            duration: 1500,
-            easing: 'easeOutBounce',
+            duration: printingInProgress ? 0 : 1500,
+            easing: printingInProgress ? 'linear' : 'easeOutBounce',
             delay: (context) => {
-              return context.dataIndex * 200; // Stagger animation
+              return printingInProgress ? 0 : (context.dataIndex * 200); // Stagger animation
             },
             onProgress: (animation) => {
+              if (printingInProgress) return;
               // Add glow effect during animation
               const ctx = animation.chart.ctx;
               ctx.save();
@@ -431,11 +600,17 @@
       });
       
       // Complete chart transition
-      setTimeout(() => {
+      if (printingInProgress) {
         canvas.style.opacity = '1';
         canvas.style.transform = 'scale(1)';
         canvas.classList.add('loaded');
-      }, 300);
+      } else {
+        setTimeout(() => {
+          canvas.style.opacity = '1';
+          canvas.style.transform = 'scale(1)';
+          canvas.classList.add('loaded');
+        }, 300);
+      }
     };
     const mkPie = (id, labels, data, doughnut=false)=>{
       const canvas = document.getElementById(id);
@@ -446,9 +621,9 @@
       
       if (charts[id]) charts[id].destroy();
       
-      // Add smooth chart transition
-      canvas.style.opacity = '0.3';
-      canvas.style.transform = 'scale(0.98)';
+      // Add smooth chart transition (skip fade while preparing print output)
+      canvas.style.opacity = printingInProgress ? '1' : '0.3';
+      canvas.style.transform = printingInProgress ? 'scale(1)' : 'scale(0.98)';
       
       const colors=labels.map((_,i)=>PALETTE[i%PALETTE.length]);
       charts[id]=new Chart(canvas,{
@@ -517,8 +692,8 @@
           },
           cutout: doughnut?'55%':0,
           animation: {
-            duration: 1200,
-            easing: 'easeOutBounce',
+            duration: printingInProgress ? 0 : 1200,
+            easing: printingInProgress ? 'linear' : 'easeOutBounce',
             onComplete: () => {
               canvas.classList.add('loaded');
             }
@@ -527,20 +702,34 @@
       });
       
       // Complete chart transition
-      setTimeout(() => {
+      if (printingInProgress) {
         canvas.style.opacity = '1';
         canvas.style.transform = 'scale(1)';
         canvas.classList.add('loaded');
-      }, 300);
+      } else {
+        setTimeout(() => {
+          canvas.style.opacity = '1';
+          canvas.style.transform = 'scale(1)';
+          canvas.classList.add('loaded');
+        }, 300);
+      }
     };
 
     /* ===== Load data from backend ===== */
-    async function fetchStats(months=24){
+    async function fetchStats(fromMonth='', toMonth=''){
       try{
-        const resp = await fetch('./actions/get_statistical_data.php?months='+encodeURIComponent(months), { credentials: 'same-origin' });
+        const params = new URLSearchParams();
+        if (fromMonth && toMonth) {
+          params.set('from', fromMonth);
+          params.set('to', toMonth);
+        } else {
+          params.set('months', String(monthsWindow));
+        }
+        const resp = await fetch('./actions/get_statistical_data.php?' + params.toString(), { credentials: 'same-origin' });
         if (!resp.ok) throw new Error('Network response not ok');
         const json = await resp.json();
         if (!json.ok) throw new Error(json.error || 'Invalid data');
+        apiLabels = Array.isArray(json.labels) ? json.labels.slice() : [];
 
         // Fill frontend arrays from API
         // time series
@@ -625,6 +814,9 @@
     const showAllEl= document.getElementById('showAll');
     const printBtn = document.getElementById('printBtn');
     const exportBtn= document.getElementById('exportCsv');
+    const printMetaDetails = document.getElementById('printMetaDetails');
+    let printingInProgress = false;
+    let originalRender = null;
 
     let activeTab = 'spot';
 
@@ -636,7 +828,6 @@
       document.getElementById('from').value = `${fromDate.getFullYear()}-${String(fromDate.getMonth()+1).padStart(2,'0')}`;
     })();
 
-    document.getElementById('generate').addEventListener('click', render);
     tabbar.addEventListener('click', (e)=>{
       const btn = e.target.closest('.tab'); if(!btn) return;
       [...tabbar.children].forEach(b=>b.classList.remove('active'));
@@ -648,10 +839,73 @@
       tabsWrap.style.display = showAllEl.checked ? 'none' : '';
       render();
     });
-    printBtn.addEventListener('click', ()=>window.print());
-    exportBtn.addEventListener('click', ()=>exportCurrentCSV());
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    async function printReport(){
+      if (printingInProgress) return;
+      printingInProgress = true;
+
+      const wasShowAll = !!showAllEl.checked;
+      const rerenderImmediate = async () => {
+        if (typeof originalRender === 'function') {
+          await originalRender();
+          return;
+        }
+        await render();
+      };
+      try {
+        showAllEl.checked = true;
+        tabsWrap.style.display = 'none';
+        updatePrintMeta();
+        await rerenderImmediate();
+        await sleep(220);
+        Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+        await sleep(120);
+        window.print();
+      } finally {
+        showAllEl.checked = wasShowAll;
+        tabsWrap.style.display = wasShowAll ? 'none' : '';
+        await rerenderImmediate();
+        Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+        printingInProgress = false;
+      }
+    }
+    printBtn.addEventListener('click', printReport);
+    window.addEventListener('beforeprint', ()=>{
+      updatePrintMeta();
+      Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+    });
+    window.addEventListener('afterprint', ()=>{
+      Object.values(charts).forEach(c => { if (c && typeof c.resize === 'function') c.resize(); });
+    });
+    window.addEventListener('keydown', (e)=>{
+      if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 'p') {
+        e.preventDefault();
+        printReport();
+      }
+    });
+    exportBtn.addEventListener('click', () => {
+      exportCurrentCSV().catch(err => {
+        console.error('CSV export failed', err);
+        alert('Unable to export CSV. Please try again.');
+      });
+    });
 
     // helpers
+    function monthPretty(ym){
+      if (!ym || !/^\d{4}-\d{2}$/.test(String(ym))) return String(ym || '');
+      const [y,m] = String(ym).split('-').map(Number);
+      const d = new Date(y, m - 1, 1);
+      return d.toLocaleDateString(undefined, { month:'long', year:'numeric' });
+    }
+    function updatePrintMeta(){
+      if (!printMetaDetails) return;
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const gran = document.getElementById('granularity').value;
+      const stamp = new Date().toLocaleString();
+      const rangeText = `${monthPretty(from)} to ${monthPretty(to)}`;
+      printMetaDetails.textContent = `Range: ${rangeText} | Granularity: ${labelize(gran)} | Generated: ${stamp}`;
+    }
     function kpiStrip(obj){ return Object.entries(obj).map(([k,v])=>`
       <div class="kpi"><div class="label">${k}</div><div class="value">${v}</div></div>`).join(''); }
     const card = (id,title)=>`
@@ -665,18 +919,12 @@
       const a=document.createElement('a'); a.download=id+'.png'; a.href=charts[id].toBase64Image(); a.click();
     });
 
-    function sliceForRange(series, baseMonths){
-      const n = baseMonths.length;
-      const start = Math.max(0, series.length - n);
-      return series.slice(start, start+n);
-    }
-
     function renderKPIsOverall(gran, baseMonths){
-      const aSpot = aggregate(sliceForRange(m_spot_reports, baseMonths), baseMonths, gran);
-      const aCases= aggregate(sliceForRange(m_cases_opened, baseMonths), baseMonths, gran);
-      const aInd  = aggregate(sliceForRange(m_app_individuals, baseMonths), baseMonths, gran);
-      const aVeh  = aggregate(sliceForRange(m_app_vehicles, baseMonths), baseMonths, gran);
-      const aItm  = aggregate(sliceForRange(m_app_items, baseMonths), baseMonths, gran);
+      const aSpot = aggregate(m_spot_reports, baseMonths, gran);
+      const aCases= aggregate(m_cases_opened, baseMonths, gran);
+      const aInd  = aggregate(m_app_individuals, baseMonths, gran);
+      const aVeh  = aggregate(m_app_vehicles, baseMonths, gran);
+      const aItm  = aggregate(m_app_items, baseMonths, gran);
 
       // Determine completed service requests from per-user status counts (robust matching)
       let completedSvc = 0;
@@ -708,28 +956,140 @@
       }).join(',')).join('\n');
     }
     function downloadCSV(filename, csv){
-      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const blob = new Blob(['\ufeff', csv], {type:'text/csv;charset=utf-8;'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = filename;
+      document.body.appendChild(a);
       a.click();
+      a.remove();
       setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
     }
-    function exportCurrentCSV(){
+    function pushCSVSection(rows, title, headers, values){
+      rows.push([title]);
+      rows.push(headers);
+      if (Array.isArray(values) && values.length){
+        values.forEach(v => rows.push(v));
+      } else {
+        rows.push(['No data', 0]);
+      }
+      rows.push([]);
+    }
+    async function exportCurrentCSV(){
       const gran = document.getElementById('granularity').value;
       const from = document.getElementById('from').value;
       const to   = document.getElementById('to').value;
+      if (!from || !to){ alert('Please select From and To months.'); return; }
       const baseMonths = monthsBetween(from, to);
+      if (!baseMonths.length){ alert('Invalid month range.'); return; }
       const scope = showAllEl.checked ? 'all' : activeTab;
+      const payload = await fetchStats(from, to);
+      if (!payload) {
+        alert('Unable to load statistical data for export.');
+        return;
+      }
+
+      let effectiveMonths = baseMonths;
+      if (Array.isArray(apiLabels) && apiLabels.length > 0) {
+        effectiveMonths = apiLabels.map(label => {
+          const [y, m] = String(label).split('-').map(Number);
+          return { y, m, label: String(label) };
+        });
+      }
+
+      const spotSeries = aggregate(m_spot_reports, effectiveMonths, gran);
+      const caseSeries = aggregate(m_cases_opened, effectiveMonths, gran);
+      const indSeries  = aggregate(m_app_individuals, effectiveMonths, gran);
+      const vehSeries  = aggregate(m_app_vehicles, effectiveMonths, gran);
+      const itemSeries = aggregate(m_app_items, effectiveMonths, gran);
+
+      let completedSvc = 0;
+      const completeRe = /^\s*(completed|complete|done|finished)\s*$/i;
+      Object.entries(svcStatusMap).forEach(([k, v]) => {
+        if (completeRe.test(String(k))) completedSvc += (+v || 0);
+      });
+
+      const kpiRows = [
+        ['Total Spot Reports', sum(spotSeries.data)],
+        ['Total Cases Opened', sum(caseSeries.data)],
+        ['Apprehended Individuals', sum(indSeries.data)],
+        ['Apprehended Vehicles', sum(vehSeries.data)],
+        ['Apprehended Items', sum(itemSeries.data)],
+        ['Completed Service Requests', completedSvc]
+      ];
+
+      const sectionMap = {
+        spot: {
+          name: 'Spot Reports',
+          timeTitle: `Spot Reports Over Time (${labelize(gran)})`,
+          time: spotSeries,
+          distTitle: 'Spot Report Status Distribution',
+          distLabels: spotStatusLabels,
+          distCounts: spotStatusCounts
+        },
+        cases: {
+          name: 'Case Management',
+          timeTitle: `Cases Opened Over Time (${labelize(gran)})`,
+          time: caseSeries,
+          distTitle: 'Case Status Distribution',
+          distLabels: caseStatusLabels,
+          distCounts: caseStatusCounts
+        },
+        app_individuals: {
+          name: 'Apprehended Individuals',
+          timeTitle: `Individuals Apprehended Over Time (${labelize(gran)})`,
+          time: indSeries,
+          distTitle: 'Roles and Gender Distribution',
+          distLabels: rolesLabels.concat(genderLabels.map(g => `Gender: ${g}`)),
+          distCounts: rolesCounts.concat(genderCounts)
+        },
+        app_vehicles: {
+          name: 'Apprehended Vehicles',
+          timeTitle: `Vehicles Apprehended Over Time (${labelize(gran)})`,
+          time: vehSeries,
+          distTitle: 'Vehicle Status Distribution',
+          distLabels: vehicleStatusLabels,
+          distCounts: vehicleStatusCounts
+        },
+        app_items: {
+          name: 'Apprehended Items',
+          timeTitle: `Items Apprehended Over Time (${labelize(gran)})`,
+          time: itemSeries,
+          distTitle: 'Item Type Distribution',
+          distLabels: itemTypeLabels,
+          distCounts: itemTypeCounts
+        }
+      };
+      const selectedTabs = showAllEl.checked
+        ? ['spot', 'cases', 'app_individuals', 'app_vehicles', 'app_items']
+        : [activeTab];
 
       const sections = [];
-      const header = [['CENRO Statistical Report'],
-                      ['Generated On', new Date().toLocaleDateString()],
-                      ['From', from], ['To', to], ['Exported At', new Date().toLocaleString()]];
-      sections.push(header, [['']]);
+      sections.push(['CENRO Statistical Report']);
+      sections.push(['Scope', showAllEl.checked ? 'All Modules' : (sectionMap[activeTab]?.name || activeTab)]);
+      sections.push(['From', from]);
+      sections.push(['To', to]);
+      sections.push(['Granularity', labelize(gran)]);
+      sections.push(['Exported At', new Date().toLocaleString()]);
+      sections.push([]);
 
-      // Export current data
-      const csv = toCSV(sections.flat());
+      pushCSVSection(sections, 'KPI Summary', ['Metric', 'Value'], kpiRows);
+
+      selectedTabs.forEach(tab => {
+        const cfg = sectionMap[tab];
+        if (!cfg) return;
+
+        sections.push([`Section: ${cfg.name}`]);
+        sections.push([]);
+
+        const timeRows = cfg.time.labels.map((label, i) => [label, cfg.time.data[i] || 0]);
+        pushCSVSection(sections, cfg.timeTitle, ['Period', 'Count'], timeRows);
+
+        const distRows = (cfg.distLabels || []).map((label, i) => [label, (cfg.distCounts && cfg.distCounts[i]) || 0]);
+        pushCSVSection(sections, cfg.distTitle, ['Category', 'Count'], distRows);
+      });
+
+      const csv = toCSV(sections);
       downloadCSV(`cenro_report_${scope}_${from}_to_${to}.csv`, csv);
     }
 
@@ -747,8 +1107,20 @@
         baseMonths.splice(monthsWindow);
       }
 
-      // Fetch fresh stats for the selected range (ensures apprehended data is DB-driven)
-      await fetchStats(baseMonths.length);
+      // Fetch fresh stats for the selected range (DB-driven and filter-aware)
+      const payload = await fetchStats(from, to);
+      if (!payload) {
+        alert('Unable to load statistical data for the selected range.');
+        return;
+      }
+
+      let effectiveMonths = baseMonths;
+      if (Array.isArray(apiLabels) && apiLabels.length > 0) {
+        effectiveMonths = apiLabels.map(label => {
+          const [y,m] = String(label).split('-').map(Number);
+          return { y, m, label: String(label) };
+        });
+      }
 
       // destroy old charts
       Object.values(charts).forEach(c=>c.destroy && c.destroy());
@@ -756,14 +1128,14 @@
       host.innerHTML='';
 
       // KPIs across modules
-      renderKPIsOverall(gran, baseMonths);
+      renderKPIsOverall(gran, effectiveMonths);
 
       // aligned series for range
-      const spotSeries = aggregate(sliceForRange(m_spot_reports, baseMonths), baseMonths, gran);
-      const caseSeries = aggregate(sliceForRange(m_cases_opened, baseMonths), baseMonths, gran);
-      const indSeries  = aggregate(sliceForRange(m_app_individuals, baseMonths), baseMonths, gran);
-      const vehSeries  = aggregate(sliceForRange(m_app_vehicles, baseMonths), baseMonths, gran);
-      const itemSeries = aggregate(sliceForRange(m_app_items, baseMonths), baseMonths, gran);
+      const spotSeries = aggregate(m_spot_reports, effectiveMonths, gran);
+      const caseSeries = aggregate(m_cases_opened, effectiveMonths, gran);
+      const indSeries  = aggregate(m_app_individuals, effectiveMonths, gran);
+      const vehSeries  = aggregate(m_app_vehicles, effectiveMonths, gran);
+      const itemSeries = aggregate(m_app_items, effectiveMonths, gran);
 
       const gridStart = `<div class="grid">`, gridEnd = `</div>`;
 
@@ -842,7 +1214,7 @@
     }
     
     // Override render function to include transitions
-    const originalRender = render;
+    originalRender = render;
     render = function() {
       addContentTransition();
       setTimeout(() => {
@@ -868,9 +1240,8 @@
       }, 800);
     });
 
-    // initial render: load data then render
+    // initial render
     (async function(){
-      const data = await fetchStats(monthsWindow);
       render();
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(()=>setTimeout(render,100));

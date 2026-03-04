@@ -94,11 +94,11 @@
                   </div>
                     <div class="mt-3">
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #fd7e14;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #0d6efd;"></div>
                       <small class="text-muted">Under Investigation: <span id="caseUnderInvestigation" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #6f42c1;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #ffc107;"></div>
                       <small class="text-muted">Pending Review: <span id="casePendingReview" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
@@ -106,15 +106,15 @@
                       <small class="text-muted">For Filing: <span id="caseForFiling" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #11998e;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #6c757d;"></div>
                       <small class="text-muted">Filed in Court: <span id="caseFiledInCourt" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #17a2b8;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #0dcaf0;"></div>
                       <small class="text-muted">Ongoing Trial: <span id="caseOnGoing" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #6c757d;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #198754;"></div>
                       <small class="text-muted">Resolved: <span id="caseResolved" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
@@ -122,15 +122,15 @@
                       <small class="text-muted">Dismissed: <span id="caseDismissed" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #343a40;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #212529;"></div>
                       <small class="text-muted">Archived: <span id="caseArchived" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center mb-1">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #adb5bd;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #dc3545;"></div>
                       <small class="text-muted">On Hold: <span id="caseOnHold" class="fw-bold text-dark">—</span></small>
                     </div>
                     <div class="d-flex align-items-center">
-                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #f093fb;"></div>
+                      <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #20c997;"></div>
                       <small class="text-muted">Under Appeal: <span id="caseUnderAppeal" class="fw-bold text-dark">—</span></small>
                     </div>
                   </div>
@@ -268,7 +268,10 @@
       const ctx2 = document.getElementById('caseStatusChart');
 
       function palette(n) {
-        const base = ['#11998e','#38ef7d','#f093fb','#f5576c','#ffc107','#17a2b8','#6f42c1','#dc3545','#6c757d'];
+        // Colors aligned with requested mapping:
+        // bg-primary, bg-warning, bg-warning, bg-secondary, bg-info, bg-success,
+        // bg-danger, bg-dark, bg-danger, bg-teal
+        const base = ['#0d6efd','#ffc107','#ffc107','#6c757d','#0dcaf0','#198754','#dc3545','#212529','#dc3545','#20c997'];
         const out = [];
         for (let i=0;i<n;i++) out.push(base[i % base.length]);
         return out;

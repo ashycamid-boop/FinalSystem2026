@@ -19,6 +19,28 @@
       background-color: #0d6efd !important;
       color: white !important;
     }
+    /* Status should render as plain text (no colored badge chips) */
+    .badge,
+    .badge[class*="bg-"] {
+      background: transparent !important;
+      color: #000 !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+      font-weight: 600 !important;
+    }
+    .report-header .logo-left,
+    .report-header .logo-right {
+      width: 78px;
+      height: 78px;
+    }
+    .report-header .logo-left {
+      border: 1px solid #cfcfcf;
+      border-radius: 50%;
+      padding: 2px;
+      box-sizing: border-box;
+    }
 
     /* Print / A4 formatting */
     @page {
@@ -43,11 +65,9 @@
         display: none !important;
       }
 
-      /* Make main content take full print width */
+      /* Preserve main content layout and spacing for print */
       .layout, .main, .main-content, .container-fluid {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
+        margin: 0 auto !important;
         background: #ffffff !important;
         box-shadow: none !important;
       }
@@ -58,40 +78,61 @@
       }
 
       table {
-        width: 100% !important;
+        width: calc(100% - 2px) !important;
+        margin-left: 1px !important;
+        margin-right: 1px !important;
         border-collapse: collapse;
         font-size: 12px;
+        border-left: 1.5px solid #000 !important;
+        border-right: 1.5px solid #000 !important;
+        box-sizing: border-box !important;
       }
 
       .table-bordered td, .table-bordered th {
         border: 1px solid #000 !important;
       }
-
-
-      /* Logos scaling */
-      .logo-left, .logo-right {
-        max-width: 140px !important;
-        height: auto !important;
+      .table.table-bordered {
+        border: 1px solid #000 !important;
+        border-left: 1.5px solid #000 !important;
+        border-right: 1.5px solid #000 !important;
+      }
+      .table.table-bordered tr > *:last-child {
+        border-right: 1px solid #000 !important;
       }
 
-      /* Header sizing for print */
+
+      /* Logos scaling (larger for print header) */
+      .logo-left, .logo-right {
+        max-width: 280px !important;
+        height: auto !important;
+        display: block !important;
+      }
+      .logo-left { margin-right: 10px !important; }
+      .logo-right { margin-left: 10px !important; }
+
+      /* Header sizing for print — larger and more prominent */
       .report-header {
-        padding-top: 6mm !important;
-        padding-bottom: 6mm !important;
+        padding-top: 12mm !important;
+        padding-bottom: 12mm !important;
       }
 
       .report-header .header-content h6 {
         margin: 0;
-        font-size: 12px !important;
-        line-height: 1.1;
-        font-weight: 600;
+        font-size: 14px !important;
+        line-height: 1.15;
+        font-weight: 700;
       }
 
       .report-header .header-content h4 {
-        margin-top: 8px;
-        margin-bottom: 0;
-        font-size: 20px !important;
-        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 6px;
+        font-size: 28px !important;
+        font-weight: 800 !important;
+      }
+
+      .report-header .header-content .small {
+        font-size: 14px !important;
+        color: #333 !important;
       }
 
       .report-header .header-content {
@@ -103,9 +144,20 @@
         -webkit-print-color-adjust: exact !important;
         color-adjust: exact !important;
       }
+      /* Make badges plain text for print (no color swatches) */
+      .badge {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        font-weight: 600 !important;
+      }
 
       /* Utility: hide anything explicitly marked no-print */
       .no-print { display: none !important; }
+      /* Hide table columns marked as evidence */
+      .evidence-col { display: none !important; }
       /* Remove visual scrollbars (hide in webkit browsers and others) */
       *::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; background: transparent !important; }
       html { -ms-overflow-style: none; scrollbar-width: none; }
@@ -115,6 +167,54 @@
   </style>
 </head>
 <body>
+  <style>
+    /* Improved print layout: hide non-essential UI and expand main content */
+    @page { size: A4; margin: 10mm; }
+    @media print {
+      html, body { width: 210mm !important; height: auto !important; margin: 0 !important; padding: 0 !important; background: #ffffff !important; -webkit-print-color-adjust: exact; color-adjust: exact; }
+
+      /* Hide navigation and interactive controls so they do not reserve layout space */
+      .sidebar, .topbar, .action-buttons, .sidebar-nav, .sidebar-logo, .topbar-card, .navigation, .no-print { display: none !important; }
+      .btn, .btn * { display: none !important; }
+
+      /* Keep the page layout consistent with screen: do not strip paddings */
+      .layout, .main { width: auto !important; max-width: none !important; margin: 0 auto !important; position: static !important; }
+      /* Keep container padding so print matches on-screen spacing */
+      .main-content, .container-fluid { padding: inherit !important; }
+
+      /* Hide evidence links/icons in print */
+      .evidence-link, .evidence-files, .pdf-files, .file-item { display: none !important; }
+
+      /* Ensure images and tables scale correctly */
+      img { max-width: 100% !important; height: auto !important; }
+
+      /* Enlarge header logos and text in the body-level print rules as well */
+      .logo-left, .logo-right { max-width: 280px !important; height: auto !important; display:block !important; }
+      .logo-left { margin-right: 10px !important; }
+      .logo-right { margin-left: 10px !important; }
+      .report-header { padding-top: 12mm !important; padding-bottom: 12mm !important; }
+      .report-header .header-content h6 { font-size: 14px !important; font-weight: 700; }
+      .report-header .header-content h4 { font-size: 28px !important; font-weight: 800; margin-top: 10px; }
+      .report-header .header-content .small { font-size: 14px !important; }
+      table {
+        width: calc(100% - 2px) !important;
+        margin-left: 1px !important;
+        margin-right: 1px !important;
+        border-collapse: collapse !important;
+        page-break-inside: avoid !important;
+        border-left: 1.5px solid #000 !important;
+        border-right: 1.5px solid #000 !important;
+        box-sizing: border-box !important;
+      }
+      .table-bordered td, .table-bordered th { border: 1px solid #000 !important; }
+      .table.table-bordered {
+        border: 1px solid #000 !important;
+        border-left: 1.5px solid #000 !important;
+        border-right: 1.5px solid #000 !important;
+      }
+      .table.table-bordered tr > *:last-child { border-right: 1px solid #000 !important; }
+    }
+  </style>
   <div class="layout">
     <!-- Sidebar -->
     <nav class="sidebar" role="navigation" aria-label="Main sidebar">
@@ -295,6 +395,7 @@
         <!-- Action Buttons -->
         <div class="action-buttons mb-3 px-4">
           <button type="button" class="btn btn-secondary me-2" onclick="window.history.back()">Back</button>
+          <button type="button" class="btn btn-primary me-2" onclick="printReport()" title="Print">Print</button>
         </div>
         <!-- Case Details Content -->
         <div class="container-fluid p-4">
@@ -357,7 +458,8 @@
                     <th>Address</th>
                     <th>Contact No.</th>
                     <th>Role/Remarks</th>
-                    <th>Evidence</th>
+                    <th>Status</th>
+                    <th class="evidence-col">Evidence</th>
                 </tr>
               </thead>
               <tbody>
@@ -370,7 +472,7 @@
                       $person_address = $p['address'] ?? '-';
                       $person_contact = $p['contact_no'] ?? $p['contact'] ?? '-';
                       $person_role = $p['role'] ?? '-';
-                      $person_status = $p['status'] ?? 'For Custody';
+                      $person_status = isset($p['status']) ? $p['status'] : '';
                       $person_id = (int)($p['id'] ?? 0);
                       $pfiles = $person_files[$pi] ?? array();
                     ?>
@@ -381,11 +483,19 @@
                       <td><?php echo htmlspecialchars($person_address); ?></td>
                       <td><?php echo htmlspecialchars($person_contact); ?></td>
                       <td><?php echo htmlspecialchars($person_role); ?></td>
+                      <?php $personBadge = map_status_to_class($person_status); ?>
                       <td>
+                        <?php if (trim((string)$person_status) !== ''): ?>
+                          <span class="badge <?php echo $personBadge; ?>" id="person-status-<?php echo $person_id; ?>"><?php echo htmlspecialchars($person_status); ?></span>
+                        <?php else: ?>
+                          <span class="text-muted">-</span>
+                        <?php endif; ?>
+                      </td>
+                      <td class="evidence-col">
                         <?php if (!empty($pfiles)): ?>
                           <?php foreach ($pfiles as $fentry): $href = $fentry['path'] ?? ''; $label = $fentry['orig'] ?? basename($href); $ext = strtolower(pathinfo($label, PATHINFO_EXTENSION)); $iconClass = in_array($ext, ['jpg','jpeg','png','gif','webp']) ? 'fa-image text-primary' : ($ext === 'pdf' ? 'fa-file-pdf text-danger' : 'fa-file text-secondary'); ?>
                             <div style="display:inline-block; margin-right:8px;">
-                              <a href="<?php echo htmlspecialchars(build_file_url($href)); ?>" target="_blank" title="<?php echo htmlspecialchars($label); ?>" style="color:inherit; text-decoration:none;">
+                              <a class="evidence-link" href="<?php echo htmlspecialchars(build_file_url($href)); ?>" target="_blank" title="<?php echo htmlspecialchars($label); ?>" style="color:inherit; text-decoration:none;">
                                 <i class="fa <?php echo $iconClass; ?>" style="font-size:18px;"></i>
                               </a>
                             </div>
@@ -397,7 +507,7 @@
                     </tr>
                   <?php endfor; ?>
                   <?php else: ?>
-                  <tr><td colspan="7" class="text-center">No apprehended persons recorded.</td></tr>
+                  <tr><td colspan="8" class="text-center">No apprehended persons recorded.</td></tr>
                 <?php endif; ?>
               </tbody>
             </table>
@@ -417,8 +527,7 @@
                   <th>Engine/Chassis No.</th>
                   <th>Remarks</th>
                   <th>Status</th>
-                  <th>Evidence</th>
-                  <th>Actions</th>
+                  <th class="evidence-col">Evidence</th>
                 </tr>
               </thead>
               <tbody>
@@ -445,11 +554,11 @@
                       <td><?php echo htmlspecialchars($v['remarks'] ?? ''); ?></td>
                       <?php $vehicleBadge = map_status_to_class($vehicle_status); ?>
                       <td><span class="badge <?php echo $vehicleBadge; ?>" id="vehicle-status-<?php echo $vehicle_id; ?>"><?php echo htmlspecialchars($vehicle_status); ?></span></td>
-                      <td>
+                      <td class="evidence-col">
                         <?php if (!empty($vfiles)): ?>
                           <?php foreach ($vfiles as $fentry): $href = $fentry['path'] ?? ''; $label = $fentry['orig'] ?? basename($href); $ext = strtolower(pathinfo($label, PATHINFO_EXTENSION)); $iconClass = in_array($ext, ['jpg','jpeg','png','gif','webp']) ? 'fa-image text-primary' : ($ext === 'pdf' ? 'fa-file-pdf text-danger' : 'fa-file text-secondary'); ?>
                             <div style="display:inline-block; margin-right:8px;">
-                              <a href="<?php echo htmlspecialchars(build_file_url($href)); ?>" target="_blank" title="<?php echo htmlspecialchars($label); ?>" style="color:inherit; text-decoration:none;">
+                              <a class="evidence-link" href="<?php echo htmlspecialchars(build_file_url($href)); ?>" target="_blank" title="<?php echo htmlspecialchars($label); ?>" style="color:inherit; text-decoration:none;">
                                 <i class="fa <?php echo $iconClass; ?>" style="font-size:18px;"></i>
                               </a>
                             </div>
@@ -458,15 +567,10 @@
                           <span class="text-muted">-</span>
                         <?php endif; ?>
                       </td>
-                      <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="editVehicleStatus(<?php echo $vehicle_id; ?>)">
-                          <i class="fa fa-edit"></i>
-                        </button>
-                      </td>
                     </tr>
                   <?php endfor; ?>
                 <?php else: ?>
-                  <tr><td colspan="10" class="text-center">No vehicles recorded.</td></tr>
+                  <tr><td colspan="9" class="text-center">No vehicles recorded.</td></tr>
                 <?php endif; ?>
               </tbody>
             </table>
@@ -486,8 +590,7 @@
                   <th>Estimated Value (₱)</th>
                   <th>Remarks No.</th>
                   <th>Status</th>
-                  <th>Evidence</th>
-                  <th>Actions</th>
+                  <th class="evidence-col">Evidence</th>
                 </tr>
               </thead>
               <tbody>
@@ -515,11 +618,11 @@
                       <td><?php echo htmlspecialchars($item_remarks); ?></td>
                       <?php $itemBadge = map_status_to_class($item_status); ?>
                       <td><span class="badge <?php echo $itemBadge; ?>" id="item-status-<?php echo $item_id; ?>"><?php echo htmlspecialchars($item_status); ?></span></td>
-                      <td>
+                      <td class="evidence-col">
                         <?php if (!empty($ifiles)): ?>
                           <?php foreach ($ifiles as $fentry): $href = $fentry['path'] ?? ''; $label = $fentry['orig'] ?? basename($href); $ext = strtolower(pathinfo($label, PATHINFO_EXTENSION)); $iconClass = in_array($ext, ['jpg','jpeg','png','gif','webp']) ? 'fa-image text-primary' : ($ext === 'pdf' ? 'fa-file-pdf text-danger' : 'fa-file text-secondary'); ?>
                             <div style="display:inline-block; margin-right:8px;">
-                              <a href="<?php echo htmlspecialchars(build_file_url($href)); ?>" target="_blank" title="<?php echo htmlspecialchars($label); ?>" style="color:inherit; text-decoration:none;">
+                              <a class="evidence-link" href="<?php echo htmlspecialchars(build_file_url($href)); ?>" target="_blank" title="<?php echo htmlspecialchars($label); ?>" style="color:inherit; text-decoration:none;">
                                 <i class="fa <?php echo $iconClass; ?>" style="font-size:18px;"></i>
                               </a>
                             </div>
@@ -528,22 +631,17 @@
                           <span class="text-muted">-</span>
                         <?php endif; ?>
                       </td>
-                      <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="editItemStatus(<?php echo $item_id; ?>)">
-                          <i class="fa fa-edit"></i>
-                        </button>
-                      </td>
                     </tr>
                   <?php endfor; ?>
                 <?php else: ?>
-                  <tr><td colspan="10" class="text-center">No seizure items recorded.</td></tr>
+                  <tr><td colspan="9" class="text-center">No seizure items recorded.</td></tr>
                 <?php endif; ?>
               </tbody>
             </table>
           </div>
 
           <!-- Evidence and Status Section -->
-          <div class="report-section mb-4">
+          <div class="report-section mb-4 no-print">
             <table class="table table-bordered">
               <tr>
                 <td class="field-label" style="width: 150px;">Evidence(s)</td>
@@ -671,6 +769,7 @@
 
   <!-- Case Details Status Management -->
   <script>
+    function printReport() { setTimeout(function(){ window.print(); }, 100); }
     // Edit Person Status
     function editPersonStatus(personId) {
       const statusOptions = [

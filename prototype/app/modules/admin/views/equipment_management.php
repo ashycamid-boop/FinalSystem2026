@@ -21,16 +21,22 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
   <link rel="stylesheet" href="../../../../public/assets/css/modules/admin/equipment-management.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css?family=Fredoka+One:400&display=swap" rel="stylesheet">
-  
   <!-- Print Styles -->
   <style>
     @media print {
-      @page { size: Legal landscape; margin: 10mm; }
+      @page { size: Legal landscape; margin: 2mm 10mm 10mm 10mm; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
       body * {
         visibility: hidden;
       }
-      .print-container, .print-container * {
+      .print-container,
+      .print-container * {
         visibility: visible;
+        font-size: 11px !important;
       }
       .print-container {
         position: absolute;
@@ -39,341 +45,164 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
         width: 100%;
         font-family: "Times New Roman", Times, serif;
         color: #000;
-        line-height: 1.4;
+        background: #fff;
+        line-height: 1.15;
       }
       .no-print {
         display: none !important;
       }
-      /* Clean header: logo + office text, white background */
+
       .print-header {
-        text-align: center;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
+        margin: 0;
         background: #fff;
-        color: #000;
+        border: none;
       }
       .print-logo-section {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 86px 1fr 86px;
         align-items: center;
-        gap: 24px;
-        justify-content: flex-start;
-        padding: 8px 12px;
+        column-gap: 8px;
+        padding: 6px 8px;
+        border-bottom: 1px solid #4b5563;
       }
-      .print-logo { width: 100px; height: 100px; object-fit: contain; }
-      .print-header-text { text-align: left; flex: 1; }
-      .print-header-text .line-1 { font-size: 18px; font-weight: 800; text-transform: uppercase; }
-      .rp-center { text-align: center; margin-top: 8px; font-size: 16px; font-weight: 800; }
-      .print-report-title {
-        background-color: #666;
-        color: white;
-        padding: 18px;
-        margin: 25px auto;
-        font-size: 22px;
-        font-weight: bold;
-        letter-spacing: 2px;
+      .print-logo {
+        width: 66px;
+        height: 66px;
+        object-fit: contain;
+        justify-self: start;
+      }
+      .print-logo-right {
+        justify-self: end;
+      }
+      .print-header-text {
+        text-align: center;
+        line-height: 1.15;
+      }
+      .print-header-text .line-1 {
+        font-size: 12px;
+        font-weight: 700;
         text-transform: uppercase;
-        font-family: "Times New Roman", Times, serif;
-        border: 3px double #666;
-        max-width: 600px;
       }
-      .print-info-section {
-        display: flex;
-        justify-content: space-between;
-        border: 2px solid #666;
-        padding: 20px;
-        margin-bottom: 25px;
-        background-color: #f9f9f9;
-        font-family: "Times New Roman", Times, serif;
-      }
-      .print-info-left, .print-info-right {
-        flex: 1;
-        padding: 0 15px;
-      }
-      .print-info-item {
-        margin-bottom: 12px;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-      .print-info-label {
-        font-weight: bold;
-        color: #333;
+      .print-header-text .line-2,
+      .print-header-text .line-3 {
+        font-size: 10px;
+        font-weight: 700;
         text-transform: uppercase;
+      }
+      .print-header-text .line-4 {
         font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
       }
-      .print-divider {
-        height: 1px;
-        background-color: #666;
-        margin: 20px 0;
+      .rp-center {
+        text-align: center;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 8px;
+        border-bottom: 1px solid #4b5563;
       }
+      .print-report-title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 8px;
+        margin: 0;
+        border-bottom: 1px solid #4b5563;
+      }
+      .print-doc-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 8px;
+        font-size: 8px;
+        padding: 8px 6px 6px;
+        border-bottom: 1px solid #4b5563;
+      }
+      .print-doc-meta > div:last-child {
+        text-align: right;
+      }
+
       .print-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 25px;
-        font-family: "Times New Roman", Times, serif;
-        border: 2px solid #666;
+        table-layout: fixed;
+        margin-top: 0;
+        border-left: 1px solid #4b5563;
+        border-right: 1px solid #4b5563;
+        border-bottom: 1px solid #4b5563;
       }
       .print-table th,
       .print-table td {
-        border: 1px solid #ddd;
-        padding: 6px 6px;
-        text-align: left;
+        border: 1px solid #4b5563;
+        padding: 3px 4px;
         vertical-align: top;
-        font-size: 10px;
-        line-height: 1.2;
         word-break: break-word;
+        color: #000;
       }
       .print-table th {
-        background-color: #fff;
-        color: #000;
+        background: #fff;
+        text-transform: uppercase;
         font-weight: 700;
-        text-align: left;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
+        text-align: center;
+        font-size: 7px;
+        line-height: 1.05;
       }
-      .print-table td { color: #111; }
-      .print-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-      .print-table tbody tr { page-break-inside: avoid; }
-      .print-table tbody tr:nth-child(even) {
-        background-color: #f5f5f5;
+      .print-table thead tr.group-row th {
+        background: #fff;
+        font-size: 7px;
+        letter-spacing: 0.2px;
       }
-      .print-table tbody tr:hover {
-        background-color: transparent;
+      .print-table td {
+        font-size: 7px;
+        line-height: 1.1;
       }
+      .print-table tbody tr {
+        page-break-inside: avoid;
+      }
+
       .print-footer {
-        margin-top: 50px;
-        border-top: 3px double #666;
-        padding-top: 25px;
-        font-family: "Times New Roman", Times, serif;
+        margin-top: 8px;
+        padding-top: 0;
+        border-top: none;
+        font-size: 8px;
       }
-      .print-summary {
-        background-color: #f0f0f0;
-        padding: 20px;
-        margin-bottom: 35px;
-        border: 2px solid #666;
+      .print-footer > div:first-child {
+        font-weight: 700;
+      }
+      .print-signatories {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 14px;
+      }
+      .sig-box {
         text-align: center;
+        font-size: 8px;
       }
-      .summary-title {
-        font-size: 16px;
-        font-weight: bold;
+      .sig-line {
+        border-bottom: 1px solid #374151;
+        height: 16px;
+        margin: 0 0 6px;
+      }
+      .sig-role {
         text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 15px;
-        color: #333;
+        font-weight: 700;
+        font-size: 8px;
+        letter-spacing: 0.2px;
       }
-      .summary-content {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        font-size: 14px;
-      }
-      .signature-section {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 60px;
-        gap: 20px;
-      }
-      .signature-box {
-        text-align: center;
-        width: 220px;
-        padding: 20px 15px;
-        border: 2px solid #666;
-        background-color: white;
-        font-family: "Times New Roman", Times, serif;
-      }
-      .signature-label {
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 15px;
-        color: #333;
-      }
-      .signature-line {
-        border-top: 2px solid #666;
-        margin-top: 60px;
-        padding-top: 10px;
-        font-weight: bold;
-        font-size: 13px;
-      }
-      .signature-name {
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-      .signature-title {
-        font-size: 11px;
-        font-style: italic;
-        margin-top: 5px;
-      }
-      .print-watermark {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        font-size: 80px;
-        color: rgba(102, 102, 102, 0.05);
-        z-index: -1;
-        font-weight: bold;
-        font-family: "Times New Roman", Times, serif;
-        letter-spacing: 3px;
-      }
+
+      .print-info-section,
+      .print-divider,
+      .print-summary,
+      .signature-section,
+      .print-watermark,
       .document-footer {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 10px;
-        color: #666;
-        font-style: italic;
-        border-top: 1px solid #ccc;
-        padding-top: 15px;
+        display: none !important;
       }
-    }
-    
-    /* Print container - hidden by default */
-    .print-container {
-      display: none;
-    }
-
-    /* Modal Styles */
-    .equipment-details-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1050;
-    }
-
-    .equipment-details-modal .modal-content {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      max-width: 1000px;
-      width: 95%;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .add-device-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1050;
-    }
-
-    .add-device-modal .modal-content {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      max-width: 900px;
-      width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .section-title {
-      color: #2c3e50;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 15px;
-      padding-bottom: 5px;
-      border-bottom: 2px solid #3498db;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .details-section {
-      background: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .section-header {
-      color: #2c3e50;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 15px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #3498db;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .detail-item {
-      margin-bottom: 12px;
-    }
-
-    .detail-item label {
-      font-weight: 600;
-      color: #495057;
-      font-size: 13px;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .detail-item span {
-      color: #212529;
-      font-size: 14px;
-      display: block;
-      padding: 6px 12px;
-      background: white;
-      border: 1px solid #dee2e6;
-      border-radius: 4px;
-      min-height: 32px;
-      line-height: 1.4;
-    }
-
-    .btn-close {
-      background: none;
-      border: none;
-      font-size: 24px;
-      font-weight: bold;
-      color: #666;
-      cursor: pointer;
-      padding: 0;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 15px;
-      right: 15px;
-    }
-
-    .btn-close:hover {
-      color: #000;
-    }
-
-    .modal-header {
-      position: relative;
-      padding: 20px;
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .modal-body {
-      padding: 20px;
-      max-height: calc(90vh - 140px);
-      overflow-y: auto;
-    }
-
-    .modal-footer {
-      padding: 15px 20px;
-      border-top: 1px solid #dee2e6;
-      text-align: right;
     }
   </style>
   <style>
@@ -1152,35 +981,49 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
       <div class="print-logo-section">
         <img src="../../../../public/assets/images/denr-logo.png" alt="DENR Logo" class="print-logo">
         <div class="print-header-text">
-          <div class="line-1">Department of Environment and Natural Resources</div>
+          <div class="line-1">Republic of the Philippines</div>
+          <div class="line-2">Department of Environment and Natural Resources</div>
+          <div class="line-3">Caraga Region - CENRO Nasipit</div>
+          <div class="line-4">Equipment Management Inventory</div>
         </div>
+        <img src="../../../../public/assets/images/bagong-pilipinas-logo.png" alt="Bagong Pilipinas Logo" class="print-logo print-logo-right">
       </div>
       <div class="rp-center">RP GOVERNMENT PROPERTY</div>
-      <div style="height:10px;">&nbsp;</div>
+      <div class="print-report-title">Equipment List Report</div>
+      <div class="print-doc-meta">
+        <div><strong>Form Code:</strong> CENRO-ICT-INV-01</div>
+        <div><strong>Document Type:</strong> Government Property Inventory</div>
+      </div>
     </div>
 
     <table class="print-table" id="printTable">
       <thead>
+        <tr class="group-row">
+          <th colspan="5">Equipment Details</th>
+          <th colspan="8">Assignment Information</th>
+          <th colspan="4">Technical and Lifecycle</th>
+          <th colspan="2">Disposition</th>
+        </tr>
         <tr>
-          <th style="width:6%">Asset ID</th>
-          <th style="width:8%">Property No.</th>
-          <th style="width:8%">Type</th>
-          <th style="width:8%">Brand / Model</th>
-          <th style="width:6%">Year</th>
-          <th style="width:8%">Office/Division</th>
-          <th style="width:8%">Accountable Person</th>
-          <th style="width:5%">A. Sex</th>
-          <th style="width:7%">A. Employment</th>
-          <th style="width:8%">Actual User</th>
-          <th style="width:5%">U. Sex</th>
-          <th style="width:7%">U. Employment</th>
-          <th style="width:8%">Nature of Work</th>
-          <th style="width:8%">Specs (Proc / RAM / GPU)</th>
-          <th style="width:8%">Software / Protection</th>
-          <th style="width:8%">Serial No.</th>
-          <th style="width:6%">Shelf Life</th>
-          <th style="width:6%">Status</th>
-          <th style="width:12%">Remarks</th>
+          <th>Asset ID</th>
+          <th>Property No.</th>
+          <th>Type</th>
+          <th>Brand / Model</th>
+          <th>Year</th>
+          <th>Office/Division</th>
+          <th>Accountable Person</th>
+          <th>A. Sex</th>
+          <th>A. Employment</th>
+          <th>Actual User</th>
+          <th>U. Sex</th>
+          <th>U. Employment</th>
+          <th>Nature of Work</th>
+          <th>Specs (Proc / RAM / GPU)</th>
+          <th>Software / Protection</th>
+          <th>Serial No.</th>
+          <th>Shelf Life</th>
+          <th>Status</th>
+          <th>Remarks</th>
         </tr>
       </thead>
       <tbody id="printTableBody">
@@ -1190,7 +1033,25 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
     <div class="print-footer" style="margin-top:12px;">
       <div style="font-size:11px;">
         <strong>Total Equipment Count:</strong> <span id="totalCount"></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Filter:</strong> <span id="printFilter"></span>
         &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Generated:</strong> <span id="footerDate"></span>
+      </div>
+      <div class="print-signatories">
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-role">Prepared By</div>
+          <div>Property Custodian</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-role">Checked By</div>
+          <div>Administrative Officer</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-role">Approved By</div>
+          <div>CENRO Officer</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1895,11 +1756,18 @@ if (empty($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
         const currentTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
         document.getElementById('footerDate').textContent = `${currentDate} at ${currentTime}`;
+        const statusFilterEl = document.getElementById('statusFilter');
+        const activeFilter = statusFilterEl ? (statusFilterEl.value || 'All') : 'All';
+        document.getElementById('printFilter').textContent = activeFilter;
 
         const printTableBody = document.getElementById('printTableBody');
         printTableBody.innerHTML = '';
 
-        const items = Object.values(equipmentData || {});
+        const items = Object.values(equipmentData || {}).sort((a, b) => {
+          const left = String(a.property_number || a.id || '').trim();
+          const right = String(b.property_number || b.id || '').trim();
+          return left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' });
+        });
         let totalCount = 0;
 
         if (!items || items.length === 0) {

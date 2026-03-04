@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../../../../app/config/db.php';
 
-if (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'enforcer') {
+if (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'enforcement_officer') {
   header('Location: /prototype/index.php');
   exit;
 }
@@ -213,12 +213,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile']) && 
         <img src="../../../../public/assets/images/denr-logo.png" alt="DENR Logo">
         <span>CENRO</span>
       </div>
-      <div class="sidebar-role">Enforcer</div>
+      <div class="sidebar-role">Enforcement Officer</div>
       <nav class="sidebar-nav" aria-label="Sidebar menu">
         <ul>
           <li><a href="dashboard.php"><i class="fa fa-th-large"></i> Dashboard</a></li>
           <li><a href="spot_reports.php"><i class="fa fa-file-text"></i> Spot Reports</a></li>
+          <li><a href="case_management.php"><i class="fa fa-briefcase"></i> Case Management</a></li>
+          <li><a href="apprehended_items.php"><i class="fa fa-archive"></i> Apprehended Items</a></li>
           <li><a href="service_requests.php"><i class="fa fa-cog"></i> Service Requests</a></li>
+          <li><a href="statistical_report.php"><i class="fa fa-chart-bar"></i> Statistical Report</a></li>
         </ul>
       </nav>
     </nav>
